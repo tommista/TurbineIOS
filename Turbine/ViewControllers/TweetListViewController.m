@@ -7,6 +7,7 @@
 //
 
 #import "TweetListViewController.h"
+#import "HandleListViewController.h"
 
 @interface TweetListViewController ()
 
@@ -25,7 +26,8 @@
 #pragma mark - Actions
 
 - (IBAction) listButtonPressed:(id)sender{
-    
+    HandleListViewController *handleListVC = [[HandleListViewController alloc] initWithNibName:@"HandleListViewController" bundle:nil];
+    [self.navigationController pushViewController:handleListVC animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
