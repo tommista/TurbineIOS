@@ -13,6 +13,8 @@
 		0B0AB1441B6541A5001B6F12 /* TurbineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AB1431B6541A5001B6F12 /* TurbineTests.m */; };
 		0B0AB15D1B6543D0001B6F12 /* TweetListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AB15B1B6543D0001B6F12 /* TweetListViewController.m */; };
 		0B0AB15E1B6543D0001B6F12 /* TweetListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B0AB15C1B6543D0001B6F12 /* TweetListViewController.xib */; };
+		0B0AB1621B6548E0001B6F12 /* HandleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */; };
+		0B0AB1631B6548E0001B6F12 /* HandleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,9 @@
 		0B0AB15A1B6543D0001B6F12 /* TweetListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetListViewController.h; path = ViewControllers/TweetListViewController.h; sourceTree = "<group>"; };
 		0B0AB15B1B6543D0001B6F12 /* TweetListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetListViewController.m; path = ViewControllers/TweetListViewController.m; sourceTree = "<group>"; };
 		0B0AB15C1B6543D0001B6F12 /* TweetListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TweetListViewController.xib; path = ViewControllers/TweetListViewController.xib; sourceTree = "<group>"; };
+		0B0AB15F1B6548E0001B6F12 /* HandleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandleListViewController.h; path = ViewControllers/HandleListViewController.h; sourceTree = "<group>"; };
+		0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandleListViewController.m; path = ViewControllers/HandleListViewController.m; sourceTree = "<group>"; };
+		0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HandleListViewController.xib; path = ViewControllers/HandleListViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +125,9 @@
 				0B0AB15A1B6543D0001B6F12 /* TweetListViewController.h */,
 				0B0AB15B1B6543D0001B6F12 /* TweetListViewController.m */,
 				0B0AB15C1B6543D0001B6F12 /* TweetListViewController.xib */,
+				0B0AB15F1B6548E0001B6F12 /* HandleListViewController.h */,
+				0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */,
+				0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -206,6 +214,7 @@
 			files = (
 				0B0AB15E1B6543D0001B6F12 /* TweetListViewController.xib in Resources */,
 				0B0AB1351B6541A5001B6F12 /* Images.xcassets in Resources */,
+				0B0AB1631B6548E0001B6F12 /* HandleListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B0AB1621B6548E0001B6F12 /* HandleListViewController.m in Sources */,
 				0B0AB15D1B6543D0001B6F12 /* TweetListViewController.m in Sources */,
 				0B0AB12D1B6541A4001B6F12 /* AppDelegate.m in Sources */,
 				0B0AB12A1B6541A4001B6F12 /* main.m in Sources */,
