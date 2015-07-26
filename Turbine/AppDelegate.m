@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "TweetListViewController.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface AppDelegate ()
 
 @end
@@ -18,8 +20,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    [UINavigationBar appearance].barTintColor = UIColorFromRGB(0x55acee);
+    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [UINavigationBar appearance].translucent = NO;
+    
     TweetListViewController *tweetListVC = [[TweetListViewController alloc] initWithNibName:@"TweetListViewController" bundle:nil];
-    self.window.rootViewController = tweetListVC;
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tweetListVC];
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     return YES;
 }
