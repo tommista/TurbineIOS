@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "TweetListViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,11 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    //ViewController *viewController = [[ViewController alloc] initWithNibName:@"MyViewController" bundle:nil];
-    ViewController *viewController = [[ViewController alloc] init];
-    self.window.rootViewController = viewController;
+    TweetListViewController *tweetListVC = [[TweetListViewController alloc] initWithNibName:@"TweetListViewController" bundle:nil];
+    self.window.rootViewController = tweetListVC;
     [self.window makeKeyAndVisible];
     return YES;
 }
