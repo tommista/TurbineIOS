@@ -15,6 +15,7 @@
 		0B0AB15E1B6543D0001B6F12 /* TweetListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B0AB15C1B6543D0001B6F12 /* TweetListViewController.xib */; };
 		0B0AB1621B6548E0001B6F12 /* HandleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */; };
 		0B0AB1631B6548E0001B6F12 /* HandleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */; };
+		0BAB3AC41B8BB1EA0050EADE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		0B0AB15F1B6548E0001B6F12 /* HandleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandleListViewController.h; path = ViewControllers/HandleListViewController.h; sourceTree = "<group>"; };
 		0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandleListViewController.m; path = ViewControllers/HandleListViewController.m; sourceTree = "<group>"; };
 		0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HandleListViewController.xib; path = ViewControllers/HandleListViewController.xib; sourceTree = "<group>"; };
+		0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BAB3AC41B8BB1EA0050EADE /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +69,7 @@
 		0B0AB11B1B6541A4001B6F12 = {
 			isa = PBXGroup;
 			children = (
+				0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */,
 				0B0AB1261B6541A4001B6F12 /* Turbine */,
 				0B0AB1401B6541A5001B6F12 /* TurbineTests */,
 				0B0AB1251B6541A4001B6F12 /* Products */,
