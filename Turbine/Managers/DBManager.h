@@ -10,4 +10,10 @@
 
 @interface DBManager : NSObject
 
++ (DBManager *) getSharedInstance;
+- (BOOL) createHandleDatabase;
+- (BOOL) insertHandle:(NSString *)handle;
+- (BOOL) deleteHandle:(NSString *)handle;
+- (NSArray *) getAllHandles;
+
 @end
