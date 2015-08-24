@@ -41,6 +41,17 @@ static sqlite3_stmt *statement = nil;
 }
 
 - (BOOL) insertHandle:(NSString *)handle{
+    const char *dbpath = [databasePath UTF8String];
+    if(sqlite3_open(dbpath, &database) == SQLITE_OK){
+        NSString *insertSQL = [NSString stringWithFormat:@"insert into twitterHandles (handle) values (\"%@\")", handle];
+        const char *insert_statement = [insertSQL UTF8String];
+        sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
+        if(sqlite3_step(statement) == SQLITE_DONE){
+            return YES;
+        }else{
+            return NO;
+        }
+    }
     return NO;
 }
 
