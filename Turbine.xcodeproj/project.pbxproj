@@ -16,6 +16,7 @@
 		0B0AB1621B6548E0001B6F12 /* HandleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */; };
 		0B0AB1631B6548E0001B6F12 /* HandleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */; };
 		0BAB3AC41B8BB1EA0050EADE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */; };
+		0BAB3AC71B8BB5850050EADE /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BAB3AC61B8BB5850050EADE /* DBManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,8 @@
 		0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandleListViewController.m; path = ViewControllers/HandleListViewController.m; sourceTree = "<group>"; };
 		0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HandleListViewController.xib; path = ViewControllers/HandleListViewController.xib; sourceTree = "<group>"; };
 		0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		0BAB3AC51B8BB5850050EADE /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBManager.h; path = Managers/DBManager.h; sourceTree = "<group>"; };
+		0BAB3AC61B8BB5850050EADE /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBManager.m; path = Managers/DBManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,8 @@
 				0B0AB12C1B6541A4001B6F12 /* AppDelegate.m */,
 				0B0AB1341B6541A5001B6F12 /* Images.xcassets */,
 				0B0AB1271B6541A4001B6F12 /* Supporting Files */,
+				0BAB3AC51B8BB5850050EADE /* DBManager.h */,
+				0BAB3AC61B8BB5850050EADE /* DBManager.m */,
 			);
 			path = Turbine;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 				0B0AB15D1B6543D0001B6F12 /* TweetListViewController.m in Sources */,
 				0B0AB12D1B6541A4001B6F12 /* AppDelegate.m in Sources */,
 				0B0AB12A1B6541A4001B6F12 /* main.m in Sources */,
+				0BAB3AC71B8BB5850050EADE /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
