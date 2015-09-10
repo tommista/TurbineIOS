@@ -86,6 +86,9 @@
     }else if(indexPath.row == 1){
         NSArray *array = [dbManager getAllHandles];
         NSLog(@"Handles: %@", array);
+    }else if(indexPath.row == 2){
+        bool test = [dbManager deleteHandle:@"Test"];
+        NSLog(@"delete handle: %d", test);
     }
 }
 
