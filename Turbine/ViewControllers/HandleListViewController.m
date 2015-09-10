@@ -12,6 +12,7 @@
 @interface HandleListViewController (){
     DBManager *dbManager;
     NSMutableArray *handles;
+    NSString *addHandleText;
 }
 @end
 
@@ -32,11 +33,44 @@
 #pragma mark - Actions
 
 - (IBAction) addButtonPressed:(id)sender{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Add Handle" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self alertCancelButtonPressed];
+    }]];
     
+    [alert addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self alertAddButtonPressed];
+    }]];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Enter handle:";
+        [textField addTarget:self action:@selector(alertTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    }];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction) backButtonPressed:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void) alertAddButtonPressed{
+    if(![addHandleText hasPrefix:@"@"]){
+        addHandleText = [@"@" stringByAppendingString:addHandleText];
+    }
+    
+    bool addSuccess = [dbManager insertHandle:addHandleText];
+    
+    if(addSuccess){
+        NSLog(@"Success adding %@", addHandleText);
+        handles = [[dbManager getAllHandles] mutableCopy];
+        [self.tableView reloadData];
+    }else{
+        NSLog(@"Error adding %@", addHandleText);
+    }
+}
+
+- (void) alertCancelButtonPressed{
 }
 
 #pragma mark - UITableViewDataSource
@@ -79,6 +113,15 @@
             NSLog(@"Error deleting handle: %@", [handles objectAtIndex:indexPath.row]);
         }
         
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)alertTextFieldDidChange:(UITextField *)sender{
+    UIAlertController *alertController = (UIAlertController *) self.presentedViewController;
+    if (alertController){
+        addHandleText = sender.text;
     }
 }
 
