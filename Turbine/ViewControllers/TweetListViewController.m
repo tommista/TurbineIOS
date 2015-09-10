@@ -8,15 +8,19 @@
 
 #import "TweetListViewController.h"
 #import "HandleListViewController.h"
+#import "DBManager.h"
 
-@interface TweetListViewController ()
-
+@interface TweetListViewController (){
+    DBManager *dbManager;
+}
 @end
 
 @implementation TweetListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    dbManager = [DBManager getSharedInstance];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"List" style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
     
@@ -74,5 +78,15 @@
 
 
 #pragma mark - UITableViewDelegate
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row == 0){
+        bool test = [dbManager insertHandle:@"Test"];
+        NSLog(@"Inserted Test: %d", test);
+    }else if(indexPath.row == 1){
+        NSArray *array = [dbManager getAllHandles];
+        NSLog(@"Handles: %@", array);
+    }
+}
 
 @end

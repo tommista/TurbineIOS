@@ -31,7 +31,7 @@ static sqlite3_stmt *statement = nil;
 - (id) init{
     self = [super init];
     if(self){
-        
+        [self createHandleDatabase];
     }
     return self;
 }
@@ -51,6 +51,8 @@ static sqlite3_stmt *statement = nil;
             if(sqlite3_exec(database, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK){
                 isSuccess = NO;
                 NSLog(@"Failed to create table twitterHandles");
+            }else{
+                NSLog(@"@@@@ yay");
             }
             sqlite3_close(database);
             return isSuccess;
@@ -90,6 +92,20 @@ static sqlite3_stmt *statement = nil;
 }
 
 - (NSArray *) getAllHandles{
+    const char *dbpath = [databasePath UTF8String];
+    if (sqlite3_open(dbpath, &database) == SQLITE_OK){
+        NSString *querySQL = [NSString stringWithFormat:@"select * from twitterHandles"];
+        const char *query_stmt = [querySQL UTF8String];
+        NSMutableArray *resultArray = [[NSMutableArray alloc]init];
+        if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK){
+            while(sqlite3_step(statement) == SQLITE_ROW){
+                NSString *handle = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 0)];
+                [resultArray addObject:handle];
+            }
+            sqlite3_reset(statement);
+            return resultArray;
+        }
+    }
     return nil;
 }
 
