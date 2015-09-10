@@ -51,9 +51,10 @@ static sqlite3_stmt *statement = nil;
             if(sqlite3_exec(database, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK){
                 isSuccess = NO;
                 NSLog(@"Failed to create table twitterHandles");
-            }else{
-                NSLog(@"@@@@ yay");
             }
+            
+            // Create tweets table here
+            
             sqlite3_close(database);
             return isSuccess;
         }
