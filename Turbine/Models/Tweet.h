@@ -13,8 +13,8 @@
 @property (nonatomic, strong, readonly) NSString *createdAt;
 @property (nonatomic, strong, readonly) NSString *tweetId;
 @property (nonatomic, strong, readonly) NSString *text;
-@property (nonatomic, strong, readonly) NSString *user; // User
-@property (nonatomic, strong, readonly) NSString *entities;// Entities
+@property (nonatomic, strong, readonly) NSURL *profileImageURL;
+@property (nonatomic, strong, readonly) NSArray *tweetURLs;
 @property (nonatomic, strong, readonly) NSString *screenName;
 
 - (id) initWithJsonData:(NSDictionary *)data;
