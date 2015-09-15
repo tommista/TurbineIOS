@@ -10,6 +10,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Secrets.h"
 
+#define SAVED_ACCESS_TOKEN_KEY @"saved_access_token_key"
+
 @interface TwitterAPI(){
     AFHTTPRequestOperationManager *afManager;
     NSString *twitterAccessToken;
@@ -33,9 +35,23 @@ static TwitterAPI *instance = nil;
     if(self){
         afManager = [AFHTTPRequestOperationManager manager];
         
-        [self getBearerToken];
+        twitterAccessToken = [self savedAccessToken];
+        if(twitterAccessToken == nil || twitterAccessToken.length == 0){
+            [self getBearerToken];
+        }
     }
     return self;
+}
+
+- (NSString *) savedAccessToken{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:SAVED_ACCESS_TOKEN_KEY];
+}
+
+- (void) saveAccessToken:(NSString *)token{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:token forKey:SAVED_ACCESS_TOKEN_KEY];
+    [defaults synchronize];
 }
 
 - (void) getBearerToken{
@@ -45,7 +61,9 @@ static TwitterAPI *instance = nil;
     [afManager.requestSerializer setValue:@"application/x-www-form-urlencoded;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
     
     [afManager POST:@"https://api.twitter.com/oauth2/token" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+        twitterAccessToken = [responseObject objectForKey:@"access_token"];
+        [self saveAccessToken:twitterAccessToken];
+        NSLog(@"Token: %@", twitterAccessToken);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
