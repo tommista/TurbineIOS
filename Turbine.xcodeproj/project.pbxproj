@@ -15,6 +15,7 @@
 		0B0AB15E1B6543D0001B6F12 /* TweetListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B0AB15C1B6543D0001B6F12 /* TweetListViewController.xib */; };
 		0B0AB1621B6548E0001B6F12 /* HandleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */; };
 		0B0AB1631B6548E0001B6F12 /* HandleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */; };
+		0B462A3B1BA8C2D700B65D51 /* TwitterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B462A3A1BA8C2D700B65D51 /* TwitterAPI.m */; };
 		0BAB3AC41B8BB1EA0050EADE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */; };
 		0BAB3AC71B8BB5850050EADE /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BAB3AC61B8BB5850050EADE /* DBManager.m */; };
 		25554DC192B5C8474A1080B8 /* libPods-Turbine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EEACBB8E6B1325BE0C4D5E /* libPods-Turbine.a */; };
@@ -47,6 +48,8 @@
 		0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandleListViewController.m; path = ViewControllers/HandleListViewController.m; sourceTree = "<group>"; };
 		0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HandleListViewController.xib; path = ViewControllers/HandleListViewController.xib; sourceTree = "<group>"; };
 		0B462A381BA8C01600B65D51 /* Secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secrets.h; sourceTree = "<group>"; };
+		0B462A391BA8C2D700B65D51 /* TwitterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwitterAPI.h; path = Managers/TwitterAPI.h; sourceTree = "<group>"; };
+		0B462A3A1BA8C2D700B65D51 /* TwitterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TwitterAPI.m; path = Managers/TwitterAPI.m; sourceTree = "<group>"; };
 		0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0BAB3AC51B8BB5850050EADE /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBManager.h; path = Managers/DBManager.h; sourceTree = "<group>"; };
 		0BAB3AC61B8BB5850050EADE /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBManager.m; path = Managers/DBManager.m; sourceTree = "<group>"; };
@@ -107,6 +110,8 @@
 				0BAB3AC51B8BB5850050EADE /* DBManager.h */,
 				0BAB3AC61B8BB5850050EADE /* DBManager.m */,
 				0B462A381BA8C01600B65D51 /* Secrets.h */,
+				0B462A391BA8C2D700B65D51 /* TwitterAPI.h */,
+				0B462A3A1BA8C2D700B65D51 /* TwitterAPI.m */,
 			);
 			path = Turbine;
 			sourceTree = "<group>";
@@ -306,6 +311,7 @@
 				0B0AB15D1B6543D0001B6F12 /* TweetListViewController.m in Sources */,
 				0B0AB12D1B6541A4001B6F12 /* AppDelegate.m in Sources */,
 				0B0AB12A1B6541A4001B6F12 /* main.m in Sources */,
+				0B462A3B1BA8C2D700B65D51 /* TwitterAPI.m in Sources */,
 				0BAB3AC71B8BB5850050EADE /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
