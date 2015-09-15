@@ -46,6 +46,7 @@
 		0B0AB15F1B6548E0001B6F12 /* HandleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandleListViewController.h; path = ViewControllers/HandleListViewController.h; sourceTree = "<group>"; };
 		0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandleListViewController.m; path = ViewControllers/HandleListViewController.m; sourceTree = "<group>"; };
 		0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HandleListViewController.xib; path = ViewControllers/HandleListViewController.xib; sourceTree = "<group>"; };
+		0B462A381BA8C01600B65D51 /* Secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secrets.h; sourceTree = "<group>"; };
 		0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0BAB3AC51B8BB5850050EADE /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBManager.h; path = Managers/DBManager.h; sourceTree = "<group>"; };
 		0BAB3AC61B8BB5850050EADE /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBManager.m; path = Managers/DBManager.m; sourceTree = "<group>"; };
@@ -105,6 +106,7 @@
 				0B0AB1271B6541A4001B6F12 /* Supporting Files */,
 				0BAB3AC51B8BB5850050EADE /* DBManager.h */,
 				0BAB3AC61B8BB5850050EADE /* DBManager.m */,
+				0B462A381BA8C01600B65D51 /* Secrets.h */,
 			);
 			path = Turbine;
 			sourceTree = "<group>";
