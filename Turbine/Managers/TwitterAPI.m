@@ -69,4 +69,16 @@ static TwitterAPI *instance = nil;
     }];
 }
 
+- (void) getTimelineForUser:(NSString *)screenName{
+    NSDictionary *parameters = @{@"screen_name" : screenName, @"count" : @"200"};
+    
+    [afManager.requestSerializer setValue:[@"Bearer " stringByAppendingString:twitterAccessToken] forHTTPHeaderField:@"Authorization"];
+    
+    [afManager GET:@"https://api.twitter.com/1.1/statuses/user_timeline.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Success: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
 @end
