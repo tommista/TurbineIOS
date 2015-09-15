@@ -9,9 +9,11 @@
 #import "TweetListViewController.h"
 #import "HandleListViewController.h"
 #import "DBManager.h"
+#import "TwitterAPI.h"
 
 @interface TweetListViewController (){
     DBManager *dbManager;
+    TwitterAPI *twitter;
 }
 @end
 
@@ -21,6 +23,7 @@
     [super viewDidLoad];
     
     dbManager = [DBManager getSharedInstance];
+    twitter = [TwitterAPI getSharedInstance];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"List" style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
     
