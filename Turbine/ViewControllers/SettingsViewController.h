@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#define FILTER_BY_SPOTIFY_KEY @"filter_by_spotify"
+#define FILTER_BY_SOUNDCLOUD_KEY @"filter_by_soundcloud"
+#define FILTER_BY_ITUNES_KEY @"filter_by_itunes"
+#define FILTER_BY_YOUTUBE_KEY @"filter_by_youtube"
+
 @interface SettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
