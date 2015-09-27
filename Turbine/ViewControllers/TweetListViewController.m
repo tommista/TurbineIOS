@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "DBManager.h"
 #import "TwitterAPI.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface TweetListViewController (){
     DBManager *dbManager;
