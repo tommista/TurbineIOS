@@ -131,7 +131,7 @@ static sqlite3_stmt *statement = nil;
     }
     
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *insertSQL = [NSString stringWithFormat:@"insert into tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, tweet.createdAt, tweet.text, tweet.profileImageURL.absoluteString, urls, tweet.screenName];
+        NSString *insertSQL = [NSString stringWithFormat:@"insert into tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, tweet.createdAt, tweet.text, tweet.profileImageURL.absoluteString, urls, tweet.screenName.lowercaseString];
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
@@ -146,7 +146,7 @@ static sqlite3_stmt *statement = nil;
 - (BOOL) deleteAllTweetsForUser:(NSString *)screenName{
     const char *dbpath = [databasePath UTF8String];
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *deleteSQL = [NSString stringWithFormat:@"delete from tweets where screenName=\"%@\"", screenName];
+        NSString *deleteSQL = [NSString stringWithFormat:@"delete from tweets where screenName=\"%@\"", screenName.lowercaseString];
         const char *delete_statement = [deleteSQL UTF8String];
         sqlite3_prepare_v2(database, delete_statement, -1, &statement, NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){

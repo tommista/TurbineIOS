@@ -78,7 +78,10 @@
 
 - (void) deleteButtonPressedAtIndexPath:(NSIndexPath *)indexPath{
     bool deleteSuccessful = [dbManager deleteHandle:[handles objectAtIndex:indexPath.row]];
-    [dbManager deleteAllTweetsForUser:[[handles objectAtIndex:indexPath.row] substringFromIndex:1]];
+    bool tweetsDeleteSuccessful = [dbManager deleteAllTweetsForUser:[[handles objectAtIndex:indexPath.row] substringFromIndex:1]];
+    
+    NSLog(@"Handle delete: %d, Tweets delete: %d", deleteSuccessful, tweetsDeleteSuccessful);
+    
     if(deleteSuccessful){
         [handles removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

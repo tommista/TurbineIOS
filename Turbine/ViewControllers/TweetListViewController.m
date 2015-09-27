@@ -29,6 +29,7 @@
     twitter.delegate = self;
     
     tweetsArray = [[NSArray alloc] init];
+    tweetsArray = [dbManager getAllTweets];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed:)];
@@ -59,6 +60,7 @@
 }
 
 - (IBAction) settingsButtonPressed:(id)sender{
+    NSLog(@"%@", [dbManager getAllTweets]);
     [dbManager dropTweetsTable];
 }
 
