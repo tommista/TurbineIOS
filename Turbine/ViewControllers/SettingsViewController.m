@@ -29,6 +29,8 @@
     
     userDefaults = [NSUserDefaults standardUserDefaults];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cross"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPressed:)];
+    
     _tableView.delegate = self;
     _tableView.dataSource = self;
 }
@@ -51,6 +53,10 @@
             break;
     }
     [userDefaults synchronize];
+}
+
+- (IBAction) backButtonPressed:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource

@@ -33,7 +33,7 @@
     tweetsArray = [[NSArray alloc] init];
     tweetsArray = [dbManager getAllTweets];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"user"] style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed:)];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -62,10 +62,9 @@
 }
 
 - (IBAction) settingsButtonPressed:(id)sender{
-    //NSLog(@"%@", [dbManager getAllTweets]);
-    //[dbManager dropTweetsTable];
     SettingsViewController *settingsVC = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
-    [self.navigationController pushViewController:settingsVC animated:YES];
+    UINavigationController *settingsNav = [[UINavigationController alloc] initWithRootViewController:settingsVC];
+    [self presentViewController:settingsNav animated:YES completion:nil];
 }
 
 - (IBAction) refreshPulled:(id)sender{
