@@ -142,6 +142,25 @@ static sqlite3_stmt *statement = nil;
     return NO;
 }
 
+- (BOOL) deleteAllTweetsForUser:(NSString *)screenName{
+    const char *dbpath = [databasePath UTF8String];
+    if(sqlite3_open(dbpath, &database) == SQLITE_OK){
+        NSString *deleteSQL = [NSString stringWithFormat:@"delete from twitterHandles where screenName=\"%@\"", screenName];
+        const char *delete_statement = [deleteSQL UTF8String];
+        sqlite3_prepare_v2(database, delete_statement, -1, &statement, NULL);
+        if(sqlite3_step(statement) == SQLITE_DONE){
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+    return NO;
+}
+
+- (NSArray *) getAllTweets{
+    return [[NSArray alloc] init];
+}
+
 - (BOOL) dropTweetsTable{
     const char *dbpath = [databasePath UTF8String];
     
