@@ -52,7 +52,7 @@ static sqlite3_stmt *statement = nil;
             NSLog(@"Failed to create table twitterHandles");
         }
         
-        sql_statement = "create table if not exists tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, PRIMARY KEY (tweetId))";
+        sql_statement = "create table if not exists tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, fullURL, PRIMARY KEY (tweetId))";
         if(sqlite3_exec(database, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK){
             isSuccess = NO;
             NSLog(@"Failed to create table tweets");
@@ -119,20 +119,25 @@ static sqlite3_stmt *statement = nil;
 - (BOOL) insertTweet:(Tweet *)tweet{
     const char *dbpath = [databasePath UTF8String];
     
-    NSString *urls = [[NSString alloc] init];
-    
-    for(NSDictionary *urlDictionary in tweet.tweetURLs){
-        
-        urls = [[urls stringByAppendingString:[urlDictionary objectForKey:@"expanded_url"]] stringByAppendingString:@"#"];
+    if(sqlite3_open(dbpath, &database) == SQLITE_OK){
+        NSString *insertSQL = [NSString stringWithFormat:@"insert into tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, fullURL) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, tweet.createdAt, tweet.text, tweet.profileImageURL.absoluteString, tweet.expandedURL.absoluteString, tweet.screenName.lowercaseString, (tweet.fullURL != nil) ? tweet.fullURL.absoluteString : nil];
+        const char *insert_statement = [insertSQL UTF8String];
+        sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
+        if(sqlite3_step(statement) == SQLITE_DONE){
+            return YES;
+        }else{
+            return NO;
+        }
     }
-    
-    if(urls.length > 0){
-        urls = [urls substringToIndex:(urls.length - 1)];
-    }
+    return NO;
+}
+
+- (BOOL) updateTweet:(Tweet *)tweet{
+    const char *dbpath = [databasePath UTF8String];
     
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *insertSQL = [NSString stringWithFormat:@"insert into tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, tweet.createdAt, tweet.text, tweet.profileImageURL.absoluteString, urls, tweet.screenName.lowercaseString];
-        const char *insert_statement = [insertSQL UTF8String];
+        NSString *updateSQL = [NSString stringWithFormat:@"update tweets set fullURL='%@' where tweetId='%@'", tweet.fullURL.absoluteString, tweet.tweetId];
+        const char *insert_statement = [updateSQL UTF8String];
         sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
             return YES;
@@ -171,10 +176,13 @@ static sqlite3_stmt *statement = nil;
                 tweet.createdAt = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 1)];
                 tweet.text = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 2)];
                 tweet.profileImageURL = [NSURL URLWithString:[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 3)]];
+                tweet.expandedURL = [NSURL URLWithString:[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)]];
                 tweet.screenName = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 5)];
                 
-                NSString *urlCombo = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)];
-                tweet.tweetURLs = [urlCombo componentsSeparatedByString:@"#"];
+                NSString *fullURLStr = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 6)];
+                if(fullURLStr != nil && fullURLStr.length > 0){
+                    tweet.fullURL = [NSURL URLWithString:fullURLStr];
+                }
                 
                 [resultArray addObject:tweet];
             }

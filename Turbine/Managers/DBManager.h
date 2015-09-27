@@ -21,6 +21,7 @@
 
 - (BOOL) dropTweetsTable;
 - (BOOL) insertTweet:(Tweet *) tweet;
+- (BOOL) updateTweet:(Tweet *) tweet;
 - (BOOL) deleteAllTweetsForUser:(NSString *)screenName;
 - (NSArray *) getAllTweets;
 

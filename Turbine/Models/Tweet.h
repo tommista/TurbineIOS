@@ -14,8 +14,9 @@
 @property (nonatomic, strong) NSString *tweetId;
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSURL *profileImageURL;
-@property (nonatomic, strong) NSArray *tweetURLs;
+@property (nonatomic, strong) NSURL *expandedURL;
 @property (nonatomic, strong) NSString *screenName;
+@property (nonatomic, strong) NSURL *fullURL;
 
 - (id) initWithJsonData:(NSDictionary *)data;
 

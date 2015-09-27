@@ -105,7 +105,7 @@ static TweetManager *instance = nil;
         for(NSDictionary *json in jsonData){
             Tweet *tweet = [[Tweet alloc] initWithJsonData:json];
             
-            if(tweet.tweetURLs != nil && tweet.tweetURLs.count > 0){
+            if(tweet.expandedURL != nil && tweet.expandedURL.absoluteString.length > 0){
                 [tweetArray addObject:tweet];
                 [dbManager insertTweet:tweetArray.lastObject];
             }
@@ -137,5 +137,26 @@ static TweetManager *instance = nil;
 
 - (void) receivedAccessToken{
 }
+
+#pragma mark - Unshorten It
+
+- (void) unshortenTweet:(Tweet *)tweet{
+    
+    NSString *unshortenedURL = tweet.expandedURL.absoluteString;
+    
+    NSDictionary *parameters = @{@"shortURL" : unshortenedURL, @"apiKey" : UNSHORTEN_IT_API_KEY, @"responseFormat" : @"json"};
+    
+    [afManager GET:@"http://api.unshorten.it/" parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+        
+        NSString *fullURL = [responseObject objectForKey:@"fullurl"];
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+}
+
+#pragma mark - Helper
 
 @end

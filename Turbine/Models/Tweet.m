@@ -16,6 +16,7 @@
         _createdAt = [data objectForKey:@"created_at"];
         _tweetId = [data objectForKey:@"id_str"];
         _text = [data objectForKey:@"text"];
+        _fullURL = nil;
         
         if([data objectForKey:@"user"]){
             _profileImageURL = [NSURL URLWithString:[[data objectForKey:@"user"] objectForKey:@"profile_image_url"]];
@@ -23,7 +24,10 @@
         }
         
         if([data objectForKey:@"entities"]){
-            _tweetURLs = [[data objectForKey:@"entities"] objectForKey:@"urls"];
+            NSArray *urls = [[data objectForKey:@"entities"] objectForKey:@"urls"];
+            if(urls != nil && urls.count > 0){
+                _expandedURL = [NSURL URLWithString:[[urls firstObject] objectForKey:@"expanded_url"]];
+            }
         }
     }
     return self;
