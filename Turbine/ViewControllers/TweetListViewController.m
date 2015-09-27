@@ -12,6 +12,7 @@
 #import "DBManager.h"
 #import "TwitterAPI.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "SettingsViewController.h"
 
 @interface TweetListViewController (){
     DBManager *dbManager;
@@ -61,8 +62,10 @@
 }
 
 - (IBAction) settingsButtonPressed:(id)sender{
-    NSLog(@"%@", [dbManager getAllTweets]);
-    [dbManager dropTweetsTable];
+    //NSLog(@"%@", [dbManager getAllTweets]);
+    //[dbManager dropTweetsTable];
+    SettingsViewController *settingsVC = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+    [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
 - (IBAction) refreshPulled:(id)sender{
