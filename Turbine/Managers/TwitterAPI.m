@@ -17,6 +17,8 @@
 @interface TwitterAPI(){
     AFHTTPRequestOperationManager *afManager;
     NSString *twitterAccessToken;
+    DBManager *dbManager;
+    int fetchAllRemaining;
 }
 @end
 
@@ -36,6 +38,7 @@ static TwitterAPI *instance = nil;
     self = [super init];
     if(self){
         afManager = [AFHTTPRequestOperationManager manager];
+        dbManager = [DBManager getSharedInstance];
         
         twitterAccessToken = [self savedAccessToken];
         if(twitterAccessToken == nil || twitterAccessToken.length == 0){
@@ -73,6 +76,14 @@ static TwitterAPI *instance = nil;
     }];
 }
 
+- (void) fetchAllTimelines{
+    NSArray *handles = [dbManager getAllHandles];
+    fetchAllRemaining = handles.count;
+    for(NSString *handle in handles){
+        [self getTimelineForUser:handle];
+    }
+}
+
 - (void) getTimelineForUser:(NSString *)screenName{
     NSDictionary *parameters = @{@"screen_name" : screenName, @"count" : @"200"};
     
@@ -84,7 +95,7 @@ static TwitterAPI *instance = nil;
         
         for(NSDictionary *json in jsonData){
             [tweetArray addObject:[[Tweet alloc] initWithJsonData:json]];
-            [[DBManager getSharedInstance] insertTweet:tweetArray.lastObject];
+            [dbManager insertTweet:tweetArray.lastObject];
         }
         
         NSLog(@"Finished retrieving timeline for %@", screenName);
@@ -92,9 +103,23 @@ static TwitterAPI *instance = nil;
             [self.delegate didFinishGettingTimeline];
         }
         
+        if(fetchAllRemaining > 0){
+            [self decrementFetchAllRemaining];
+        }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+}
+
+- (void) decrementFetchAllRemaining{
+    fetchAllRemaining--;
+    if(fetchAllRemaining == 0){
+        NSLog(@"Finished fetching all timelines");
+        if(self.delegate != nil && [self.delegate respondsToSelector:@selector(didFinishGettingAllTimelines)]){
+            [self.delegate didFinishGettingAllTimelines];
+        }
+    }
 }
 
 - (void) receivedAccessToken{

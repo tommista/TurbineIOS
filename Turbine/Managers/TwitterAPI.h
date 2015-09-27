@@ -16,6 +16,7 @@
 
 + (TwitterAPI *) getSharedInstance;
 
+- (void) fetchAllTimelines;
 - (void) getTimelineForUser:(NSString *)screenName;
 
 @end
@@ -25,5 +26,6 @@
 @optional
 
 - (void) didFinishGettingTimeline;
+- (void) didFinishGettingAllTimelines;
 
 @end

@@ -63,7 +63,7 @@
 }
 
 - (IBAction) refreshPulled:(id)sender{
-    [self.refreshControl endRefreshing];
+    [twitter fetchAllTimelines];
 }
 
 #pragma mark - UITableViewDataSource
@@ -100,6 +100,14 @@
 #pragma mark - TwitterAPIDelegate
 
 - (void) didFinishGettingTimeline{
+    if(![self.refreshControl isRefreshing]){
+        tweetsArray = [dbManager getAllTweets];
+        [self.tableView reloadData];
+    }
+}
+
+- (void) didFinishGettingAllTimelines{
+    [self.refreshControl endRefreshing];
     tweetsArray = [dbManager getAllTweets];
     [self.tableView reloadData];
 }
