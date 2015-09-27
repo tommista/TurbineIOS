@@ -8,6 +8,7 @@
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>PT_Sans-Web-Bold.ttf</string>
 		<string>PT_Sans-Web-Regular.ttf</string>
 		<string>Nightmare_Hero_Normal.ttf</string>
 	</array>

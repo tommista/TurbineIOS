@@ -91,7 +91,8 @@
     
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:tweet.screenName];
-        cell.textLabel.font = [UIFont fontWithName:@"PT Sans" size:18.0];
+        cell.textLabel.font = [UIFont fontWithName:@"PTSans-Bold" size:18.0];
+        cell.detailTextLabel.font = [UIFont fontWithName:@"PT Sans" size:14.0];
         cell.detailTextLabel.numberOfLines = 0;
         [cell.imageView sd_setImageWithURL:tweet.profileImageURL placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
