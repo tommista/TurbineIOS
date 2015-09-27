@@ -18,6 +18,8 @@
 		0B3042A51BB7BB71003BF513 /* Nightmare_Hero_Normal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B3042A41BB7BB71003BF513 /* Nightmare_Hero_Normal.ttf */; };
 		0B3042A71BB7DAA1003BF513 /* PT_Sans-Web-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B3042A61BB7DAA1003BF513 /* PT_Sans-Web-Regular.ttf */; };
 		0B3042A91BB7F24C003BF513 /* PT_Sans-Web-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B3042A81BB7F24C003BF513 /* PT_Sans-Web-Bold.ttf */; };
+		0B3042AD1BB7F3EF003BF513 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3042AB1BB7F3EF003BF513 /* SettingsViewController.m */; };
+		0B3042AE1BB7F3EF003BF513 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B3042AC1BB7F3EF003BF513 /* SettingsViewController.xib */; };
 		0B462A3B1BA8C2D700B65D51 /* TwitterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B462A3A1BA8C2D700B65D51 /* TwitterAPI.m */; };
 		0B462A411BA8CA4600B65D51 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B462A401BA8CA4600B65D51 /* Tweet.m */; };
 		0BAB3AC41B8BB1EA0050EADE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */; };
@@ -54,6 +56,9 @@
 		0B3042A41BB7BB71003BF513 /* Nightmare_Hero_Normal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nightmare_Hero_Normal.ttf; sourceTree = "<group>"; };
 		0B3042A61BB7DAA1003BF513 /* PT_Sans-Web-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PT_Sans-Web-Regular.ttf"; sourceTree = "<group>"; };
 		0B3042A81BB7F24C003BF513 /* PT_Sans-Web-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PT_Sans-Web-Bold.ttf"; sourceTree = "<group>"; };
+		0B3042AA1BB7F3EF003BF513 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ViewControllers/SettingsViewController.h; sourceTree = "<group>"; };
+		0B3042AB1BB7F3EF003BF513 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ViewControllers/SettingsViewController.m; sourceTree = "<group>"; };
+		0B3042AC1BB7F3EF003BF513 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = ViewControllers/SettingsViewController.xib; sourceTree = "<group>"; };
 		0B462A381BA8C01600B65D51 /* Secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secrets.h; sourceTree = "<group>"; };
 		0B462A391BA8C2D700B65D51 /* TwitterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwitterAPI.h; path = Managers/TwitterAPI.h; sourceTree = "<group>"; };
 		0B462A3A1BA8C2D700B65D51 /* TwitterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TwitterAPI.m; path = Managers/TwitterAPI.m; sourceTree = "<group>"; };
@@ -163,6 +168,9 @@
 				0B0AB15F1B6548E0001B6F12 /* HandleListViewController.h */,
 				0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */,
 				0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */,
+				0B3042AA1BB7F3EF003BF513 /* SettingsViewController.h */,
+				0B3042AB1BB7F3EF003BF513 /* SettingsViewController.m */,
+				0B3042AC1BB7F3EF003BF513 /* SettingsViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -281,6 +289,7 @@
 				0B3042A51BB7BB71003BF513 /* Nightmare_Hero_Normal.ttf in Resources */,
 				0B3042A71BB7DAA1003BF513 /* PT_Sans-Web-Regular.ttf in Resources */,
 				0B0AB1351B6541A5001B6F12 /* Images.xcassets in Resources */,
+				0B3042AE1BB7F3EF003BF513 /* SettingsViewController.xib in Resources */,
 				0B0AB1631B6548E0001B6F12 /* HandleListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,6 +344,7 @@
 				0B0AB1621B6548E0001B6F12 /* HandleListViewController.m in Sources */,
 				0B0AB15D1B6543D0001B6F12 /* TweetListViewController.m in Sources */,
 				0B0AB12D1B6541A4001B6F12 /* AppDelegate.m in Sources */,
+				0B3042AD1BB7F3EF003BF513 /* SettingsViewController.m in Sources */,
 				0B462A411BA8CA4600B65D51 /* Tweet.m in Sources */,
 				0B0AB12A1B6541A4001B6F12 /* main.m in Sources */,
 				0B462A3B1BA8C2D700B65D51 /* TwitterAPI.m in Sources */,
