@@ -84,7 +84,6 @@ static TwitterAPI *instance = nil;
         
         for(NSDictionary *json in jsonData){
             [tweetArray addObject:[[Tweet alloc] initWithJsonData:json]];
-            NSLog(@"ASDF: %@", [tweetArray lastObject]);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
