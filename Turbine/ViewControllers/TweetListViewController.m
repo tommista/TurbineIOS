@@ -29,6 +29,10 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed:)];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"fire"]];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self action:@selector(refreshPulled:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void) viewWillAppear:(BOOL)animated{
@@ -50,6 +54,10 @@
 
 - (IBAction) settingsButtonPressed:(id)sender{
     
+}
+
+- (IBAction) refreshPulled:(id)sender{
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - UITableViewDataSource
