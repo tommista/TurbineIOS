@@ -8,6 +8,7 @@
 
 #import "TweetListViewController.h"
 #import "HandleListViewController.h"
+#import "AppDelegate.h"
 #import "DBManager.h"
 #import "TwitterAPI.h"
 
@@ -30,8 +31,7 @@
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"fire"]];
-    self.refreshControl.tintColor = [UIColor whiteColor];
+    self.refreshControl.tintColor = UIColorFromRGB(0x960018);
     [self.refreshControl addTarget:self action:@selector(refreshPulled:) forControlEvents:UIControlEventValueChanged];
 }
 

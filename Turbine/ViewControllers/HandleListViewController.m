@@ -103,7 +103,7 @@
     
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:handleCellIdentifier];
-        cell.textLabel.font = [UIFont fontWithName:@"Nightmare Hero" size:32.0];
+        cell.textLabel.font = [UIFont fontWithName:@"PT Sans" size:18.0];
     }
     
     cell.textLabel.text = [handles objectAtIndex:indexPath.row];
