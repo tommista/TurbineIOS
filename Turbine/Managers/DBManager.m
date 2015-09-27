@@ -123,7 +123,7 @@ static sqlite3_stmt *statement = nil;
     
     for(NSDictionary *urlDictionary in tweet.tweetURLs){
         
-        urls = [[urls stringByAppendingString:[urlDictionary objectForKey:@"expanded_url"]] stringByAppendingString:@","];
+        urls = [[urls stringByAppendingString:[urlDictionary objectForKey:@"expanded_url"]] stringByAppendingString:@"#"];
     }
     
     if(urls.length > 0){
@@ -171,8 +171,11 @@ static sqlite3_stmt *statement = nil;
                 tweet.createdAt = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 1)];
                 tweet.text = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 2)];
                 tweet.profileImageURL = [NSURL URLWithString:[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 3)]];
-                //tweet.tweetURLs = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)];
                 tweet.screenName = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 5)];
+                
+                NSString *urlCombo = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)];
+                tweet.tweetURLs = [urlCombo componentsSeparatedByString:@"#"];
+                
                 [resultArray addObject:tweet];
             }
             sqlite3_reset(statement);

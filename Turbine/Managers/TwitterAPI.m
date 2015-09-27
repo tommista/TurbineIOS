@@ -103,8 +103,12 @@ static TwitterAPI *instance = nil;
         NSMutableArray *tweetArray = [[NSMutableArray alloc] init];
         
         for(NSDictionary *json in jsonData){
-            [tweetArray addObject:[[Tweet alloc] initWithJsonData:json]];
-            [dbManager insertTweet:tweetArray.lastObject];
+            Tweet *tweet = [[Tweet alloc] initWithJsonData:json];
+            
+            if(tweet.tweetURLs != nil && tweet.tweetURLs.count > 0){
+                [tweetArray addObject:tweet];
+                [dbManager insertTweet:tweetArray.lastObject];
+            }
         }
         
         NSLog(@"Finished retrieving timeline for %@", screenName);
