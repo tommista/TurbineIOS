@@ -9,6 +9,7 @@
 #import "TwitterAPI.h"
 #import <AFNetworking/AFNetworking.h>
 #import "Secrets.h"
+#import "Tweet.h"
 
 #define SAVED_ACCESS_TOKEN_KEY @"saved_access_token_key"
 
@@ -38,6 +39,8 @@ static TwitterAPI *instance = nil;
         twitterAccessToken = [self savedAccessToken];
         if(twitterAccessToken == nil || twitterAccessToken.length == 0){
             [self getBearerToken];
+        }else{
+            [self getTimelineForUser:@"thomasbrown333"];
         }
     }
     return self;
@@ -63,6 +66,7 @@ static TwitterAPI *instance = nil;
     [afManager POST:@"https://api.twitter.com/oauth2/token" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         twitterAccessToken = [responseObject objectForKey:@"access_token"];
         [self saveAccessToken:twitterAccessToken];
+        [self receivedAccessToken];
         NSLog(@"Token: %@", twitterAccessToken);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -75,10 +79,21 @@ static TwitterAPI *instance = nil;
     [afManager.requestSerializer setValue:[@"Bearer " stringByAppendingString:twitterAccessToken] forHTTPHeaderField:@"Authorization"];
     
     [afManager GET:@"https://api.twitter.com/1.1/statuses/user_timeline.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Success: %@", responseObject);
+        NSArray *jsonData = responseObject;
+        NSMutableArray *tweetArray = [[NSMutableArray alloc] init];
+        
+        for(NSDictionary *json in jsonData){
+            [tweetArray addObject:[[Tweet alloc] initWithJsonData:json]];
+            NSLog(@"ASDF: %@", [tweetArray lastObject]);
+        }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+}
+
+- (void) receivedAccessToken{
+    [self getTimelineForUser:@"thomasbrown333"];
 }
 
 @end

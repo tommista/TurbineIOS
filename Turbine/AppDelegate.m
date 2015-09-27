@@ -24,6 +24,8 @@
     [UINavigationBar appearance].barTintColor = UIColorFromRGB(0x55acee);
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     [UINavigationBar appearance].translucent = NO;
+    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     
     TweetListViewController *tweetListVC = [[TweetListViewController alloc] initWithNibName:@"TweetListViewController" bundle:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tweetListVC];
