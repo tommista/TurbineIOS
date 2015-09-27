@@ -10,12 +10,12 @@
 
 @interface Tweet : NSObject
 
-@property (nonatomic, strong, readonly) NSString *createdAt;
-@property (nonatomic, strong, readonly) NSString *tweetId;
-@property (nonatomic, strong, readonly) NSString *text;
-@property (nonatomic, strong, readonly) NSURL *profileImageURL;
-@property (nonatomic, strong, readonly) NSArray *tweetURLs;
-@property (nonatomic, strong, readonly) NSString *screenName;
+@property (nonatomic, strong) NSString *createdAt;
+@property (nonatomic, strong) NSString *tweetId;
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSURL *profileImageURL;
+@property (nonatomic, strong) NSArray *tweetURLs;
+@property (nonatomic, strong) NSString *screenName;
 
 - (id) initWithJsonData:(NSDictionary *)data;
 

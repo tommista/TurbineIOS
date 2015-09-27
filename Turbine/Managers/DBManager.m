@@ -43,6 +43,7 @@ static sqlite3_stmt *statement = nil;
     docsDir = [dirPaths objectAtIndex:0];
     databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:@"handles.db"]];
     const char *dbpath = [databasePath UTF8String];
+    
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
         char *errorMessage;
         const char *sql_statement = "create table if not exists twitterHandles (handle)";
@@ -145,7 +146,7 @@ static sqlite3_stmt *statement = nil;
 - (BOOL) deleteAllTweetsForUser:(NSString *)screenName{
     const char *dbpath = [databasePath UTF8String];
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *deleteSQL = [NSString stringWithFormat:@"delete from twitterHandles where screenName=\"%@\"", screenName];
+        NSString *deleteSQL = [NSString stringWithFormat:@"delete from tweets where screenName=\"%@\"", screenName];
         const char *delete_statement = [deleteSQL UTF8String];
         sqlite3_prepare_v2(database, delete_statement, -1, &statement, NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
@@ -158,7 +159,27 @@ static sqlite3_stmt *statement = nil;
 }
 
 - (NSArray *) getAllTweets{
-    return [[NSArray alloc] init];
+    const char *dbpath = [databasePath UTF8String];
+    if (sqlite3_open(dbpath, &database) == SQLITE_OK){
+        NSString *querySQL = @"select * from tweets";
+        const char *query_stmt = [querySQL UTF8String];
+        NSMutableArray *resultArray = [[NSMutableArray alloc]init];
+        if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK){
+            while(sqlite3_step(statement) == SQLITE_ROW){
+                Tweet *tweet = [[Tweet alloc] init];
+                tweet.tweetId = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 0)];
+                tweet.createdAt = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 1)];
+                tweet.text = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 2)];
+                tweet.profileImageURL = [NSURL URLWithString:[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 3)]];
+                //tweet.tweetURLs = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)];
+                tweet.screenName = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 5)];
+                [resultArray addObject:tweet];
+            }
+            sqlite3_reset(statement);
+            return resultArray;
+        }
+    }
+    return nil;
 }
 
 - (BOOL) dropTweetsTable{

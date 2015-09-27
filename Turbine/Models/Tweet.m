@@ -16,10 +16,10 @@
         _createdAt = [data objectForKey:@"created_at"];
         _tweetId = [data objectForKey:@"id_str"];
         _text = [data objectForKey:@"text"];
-        _screenName = [data objectForKey:@"screen_name"];
         
         if([data objectForKey:@"user"]){
             _profileImageURL = [NSURL URLWithString:[[data objectForKey:@"user"] objectForKey:@"profile_image_url"]];
+            _screenName = [[data objectForKey:@"user"] objectForKey:@"screen_name"];
         }
         
         if([data objectForKey:@"entities"]){
@@ -27,6 +27,10 @@
         }
     }
     return self;
+}
+
+- (NSString *) description{
+    return [NSString stringWithFormat:@"TweetId: %@ by %@", self.tweetId, self.screenName];
 }
 
 @end
