@@ -7,13 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Tweet.h"
 
 @interface DBManager : NSObject
 
 + (DBManager *) getSharedInstance;
-- (BOOL) createHandleDatabase;
+
+- (BOOL) createTables;
+
 - (BOOL) insertHandle:(NSString *)handle;
 - (BOOL) deleteHandle:(NSString *)handle;
 - (NSArray *) getAllHandles;
+
+- (BOOL) insertTweet:(Tweet *) tweet;
+- (BOOL) deleteAllTweetsForUser:(NSString *)screenName;
+- (NSArray *) getAllTweets;
 
 @end

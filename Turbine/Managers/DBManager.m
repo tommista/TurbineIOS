@@ -31,40 +31,39 @@ static sqlite3_stmt *statement = nil;
 - (id) init{
     self = [super init];
     if(self){
-        [self createHandleDatabase];
+        [self createTables];
     }
     return self;
 }
 
-- (BOOL) createHandleDatabase{
+- (BOOL) createTables{
     NSString *docsDir;
     BOOL isSuccess = YES;
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     docsDir = [dirPaths objectAtIndex:0];
     databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:@"handles.db"]];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if([fileManager fileExistsAtPath:databasePath] == NO){
-        const char *dbpath = [databasePath UTF8String];
-        if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-            char *errorMessage;
-            const char *sql_statement = "create table if not exists twitterHandles (handle)";
-            if(sqlite3_exec(database, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK){
-                isSuccess = NO;
-                NSLog(@"Failed to create table twitterHandles");
-            }
-            
-            sql_statement = "create table if not exists tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName)";
-            if(sqlite3_exec(database, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK){
-                isSuccess = NO;
-                NSLog(@"Failed to create table tweets");
-            }
-            
-            sqlite3_close(database);
-            return isSuccess;
+    const char *dbpath = [databasePath UTF8String];
+    if(sqlite3_open(dbpath, &database) == SQLITE_OK){
+        char *errorMessage;
+        const char *sql_statement = "create table if not exists twitterHandles (handle)";
+        if(sqlite3_exec(database, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK){
+            isSuccess = NO;
+            NSLog(@"Failed to create table twitterHandles");
         }
+        
+        sql_statement = "create table if not exists tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, PRIMARY KEY (tweetId))";
+        if(sqlite3_exec(database, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK){
+            isSuccess = NO;
+            NSLog(@"Failed to create table tweets");
+        }
+        
+        sqlite3_close(database);
+        return isSuccess;
     }
     return isSuccess;
 }
+
+#pragma mark - Handles
 
 - (BOOL) insertHandle:(NSString *)handle{
     const char *dbpath = [databasePath UTF8String];
@@ -112,6 +111,51 @@ static sqlite3_stmt *statement = nil;
         }
     }
     return nil;
+}
+
+#pragma mark - Tweets
+
+- (BOOL) insertTweet:(Tweet *)tweet{
+    const char *dbpath = [databasePath UTF8String];
+    
+    NSString *urls = [[NSString alloc] init];
+    
+    for(NSDictionary *urlDictionary in tweet.tweetURLs){
+        
+        urls = [[urls stringByAppendingString:[urlDictionary objectForKey:@"expanded_url"]] stringByAppendingString:@","];
+    }
+    
+    if(urls.length > 0){
+        urls = [urls substringToIndex:(urls.length - 1)];
+    }
+    
+    if(sqlite3_open(dbpath, &database) == SQLITE_OK){
+        NSString *insertSQL = [NSString stringWithFormat:@"insert into tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, tweet.createdAt, tweet.text, tweet.profileImageURL.absoluteString, urls, tweet.screenName];
+        const char *insert_statement = [insertSQL UTF8String];
+        sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
+        if(sqlite3_step(statement) == SQLITE_DONE){
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+    return NO;
+}
+
+- (BOOL) dropTweetsTable{
+    const char *dbpath = [databasePath UTF8String];
+    
+    if(sqlite3_open(dbpath, &database) == SQLITE_OK){
+        NSString *insertSQL = @"drop table tweets";
+        const char *insert_statement = [insertSQL UTF8String];
+        sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
+        if(sqlite3_step(statement) == SQLITE_DONE){
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+    return NO;
 }
 
 @end

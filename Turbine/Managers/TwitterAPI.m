@@ -9,6 +9,7 @@
 #import "TwitterAPI.h"
 #import <AFNetworking/AFNetworking.h>
 #import "Secrets.h"
+#import "DBManager.h"
 #import "Tweet.h"
 
 #define SAVED_ACCESS_TOKEN_KEY @"saved_access_token_key"
@@ -84,6 +85,7 @@ static TwitterAPI *instance = nil;
         
         for(NSDictionary *json in jsonData){
             [tweetArray addObject:[[Tweet alloc] initWithJsonData:json]];
+            [[DBManager getSharedInstance] insertTweet:tweetArray.lastObject];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
