@@ -100,14 +100,18 @@ static TweetManager *instance = nil;
     
     [afManager GET:@"https://api.twitter.com/1.1/statuses/user_timeline.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *jsonData = responseObject;
-        NSMutableArray *tweetArray = [[NSMutableArray alloc] init];
         
         for(NSDictionary *json in jsonData){
             Tweet *tweet = [[Tweet alloc] initWithJsonData:json];
             
             if(tweet.expandedURL != nil && tweet.expandedURL.absoluteString.length > 0){
-                [tweetArray addObject:tweet];
-                [dbManager insertTweet:tweetArray.lastObject];
+                
+                if([self stringContainsKeywords:tweet.expandedURL.absoluteString]){
+                    [dbManager insertTweet:tweet];
+                    NSLog(@"Didn't need to shorten: %@", tweet.expandedURL.absoluteString);
+                }else{
+                    [self unshortenTweet:tweet];
+                }
             }
         }
         
@@ -150,6 +154,10 @@ static TweetManager *instance = nil;
         
         NSString *fullURL = [responseObject objectForKey:@"fullurl"];
         
+        if([self stringContainsKeywords:fullURL]){
+            NSLog(@"FullURL: %@ original: %@", fullURL, unshortenedURL);
+            [dbManager insertTweet:tweet];
+        }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -158,5 +166,10 @@ static TweetManager *instance = nil;
 }
 
 #pragma mark - Helper
+
+- (BOOL) stringContainsKeywords:(NSString *)string{
+    NSString *modString = string.lowercaseString;
+    return ([modString containsString:@"spotify"] || [modString containsString:@"soundcloud"] || [modString containsString:@"itunes"] || [modString containsString:@"youtube"]);
+}
 
 @end
