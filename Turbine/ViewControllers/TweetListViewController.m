@@ -83,7 +83,18 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    Tweet *tweet = [tweetsArray objectAtIndex:indexPath.row];
+    int estimatedHeight = 0;
+    if(tweet.text.length > 120){
+        estimatedHeight = 120;
+    }else if(tweet.text.length > 50){
+        estimatedHeight = 100;
+    }else{
+        estimatedHeight = 75;
+    }
+    
+    NSLog(@"Size: %d, Estimated: %d", tweet.text.length, estimatedHeight);
+    return estimatedHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -109,6 +120,9 @@
 #pragma mark - UITableViewDelegate
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    Tweet *tweet = [tweetsArray objectAtIndex:indexPath.row];
+    [[UIApplication sharedApplication] openURL:tweet.expandedURL];
 }
 
 #pragma mark - TwitterAPIDelegate
