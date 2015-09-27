@@ -9,11 +9,11 @@
 #import "HandleListViewController.h"
 #import "DBManager.h"
 #import "AppDelegate.h"
-#import "TwitterAPI.h"
+#import "TweetManager.h"
 
 @interface HandleListViewController (){
     DBManager *dbManager;
-    TwitterAPI *twitterAPI;
+    TweetManager *tweetManager;
     NSMutableArray *handles;
     NSString *addHandleText;
 }
@@ -27,7 +27,7 @@
     self.navigationItem.title = @"Handles";
     
     dbManager = [DBManager getSharedInstance];
-    twitterAPI = [TwitterAPI getSharedInstance];
+    tweetManager = [TweetManager getSharedInstance];
     handles = [[dbManager getAllHandles] mutableCopy];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addButtonPressed:)];
@@ -69,7 +69,7 @@
     if(addSuccess){
         NSLog(@"Success adding %@", addHandleText);
         handles = [[dbManager getAllHandles] mutableCopy];
-        [twitterAPI getTimelineForUser:[addHandleText substringFromIndex:1]];
+        [tweetManager getTimelineForUser:[addHandleText substringFromIndex:1]];
         [self.tableView reloadData];
     }else{
         NSLog(@"Error adding %@", addHandleText);

@@ -20,7 +20,7 @@
 		0B3042A91BB7F24C003BF513 /* PT_Sans-Web-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B3042A81BB7F24C003BF513 /* PT_Sans-Web-Bold.ttf */; };
 		0B3042AD1BB7F3EF003BF513 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3042AB1BB7F3EF003BF513 /* SettingsViewController.m */; };
 		0B3042AE1BB7F3EF003BF513 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B3042AC1BB7F3EF003BF513 /* SettingsViewController.xib */; };
-		0B462A3B1BA8C2D700B65D51 /* TwitterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B462A3A1BA8C2D700B65D51 /* TwitterAPI.m */; };
+		0B462A3B1BA8C2D700B65D51 /* TweetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B462A3A1BA8C2D700B65D51 /* TweetManager.m */; };
 		0B462A411BA8CA4600B65D51 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B462A401BA8CA4600B65D51 /* Tweet.m */; };
 		0BAB3AC41B8BB1EA0050EADE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */; };
 		0BAB3AC71B8BB5850050EADE /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BAB3AC61B8BB5850050EADE /* DBManager.m */; };
@@ -60,8 +60,8 @@
 		0B3042AB1BB7F3EF003BF513 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ViewControllers/SettingsViewController.m; sourceTree = "<group>"; };
 		0B3042AC1BB7F3EF003BF513 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = ViewControllers/SettingsViewController.xib; sourceTree = "<group>"; };
 		0B462A381BA8C01600B65D51 /* Secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secrets.h; sourceTree = "<group>"; };
-		0B462A391BA8C2D700B65D51 /* TwitterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwitterAPI.h; path = Managers/TwitterAPI.h; sourceTree = "<group>"; };
-		0B462A3A1BA8C2D700B65D51 /* TwitterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TwitterAPI.m; path = Managers/TwitterAPI.m; sourceTree = "<group>"; };
+		0B462A391BA8C2D700B65D51 /* TweetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TweetManager.h; path = Managers/TweetManager.h; sourceTree = "<group>"; };
+		0B462A3A1BA8C2D700B65D51 /* TweetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TweetManager.m; path = Managers/TweetManager.m; sourceTree = "<group>"; };
 		0B462A3F1BA8CA4600B65D51 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tweet.h; path = Models/Tweet.h; sourceTree = "<group>"; };
 		0B462A401BA8CA4600B65D51 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tweet.m; path = Models/Tweet.m; sourceTree = "<group>"; };
 		0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -124,8 +124,8 @@
 				0BAB3AC51B8BB5850050EADE /* DBManager.h */,
 				0BAB3AC61B8BB5850050EADE /* DBManager.m */,
 				0B462A381BA8C01600B65D51 /* Secrets.h */,
-				0B462A391BA8C2D700B65D51 /* TwitterAPI.h */,
-				0B462A3A1BA8C2D700B65D51 /* TwitterAPI.m */,
+				0B462A391BA8C2D700B65D51 /* TweetManager.h */,
+				0B462A3A1BA8C2D700B65D51 /* TweetManager.m */,
 				0B462A3F1BA8CA4600B65D51 /* Tweet.h */,
 				0B462A401BA8CA4600B65D51 /* Tweet.m */,
 			);
@@ -347,7 +347,7 @@
 				0B3042AD1BB7F3EF003BF513 /* SettingsViewController.m in Sources */,
 				0B462A411BA8CA4600B65D51 /* Tweet.m in Sources */,
 				0B0AB12A1B6541A4001B6F12 /* main.m in Sources */,
-				0B462A3B1BA8C2D700B65D51 /* TwitterAPI.m in Sources */,
+				0B462A3B1BA8C2D700B65D51 /* TweetManager.m in Sources */,
 				0BAB3AC71B8BB5850050EADE /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

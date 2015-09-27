@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 tommista. All rights reserved.
 //
 
-#import "TwitterAPI.h"
+#import "TweetManager.h"
 #import <AFNetworking/AFNetworking.h>
 #import "Secrets.h"
 #import "DBManager.h"
@@ -14,7 +14,7 @@
 
 #define SAVED_ACCESS_TOKEN_KEY @"saved_access_token_key"
 
-@interface TwitterAPI(){
+@interface TweetManager(){
     AFHTTPRequestOperationManager *afManager;
     NSString *twitterAccessToken;
     DBManager *dbManager;
@@ -22,11 +22,11 @@
 }
 @end
 
-static TwitterAPI *instance = nil;
+static TweetManager *instance = nil;
 
-@implementation TwitterAPI
+@implementation TweetManager
 
-+ (TwitterAPI *) getSharedInstance{
++ (TweetManager *) getSharedInstance{
     if(!instance){
         instance = [[self alloc] init];
     }

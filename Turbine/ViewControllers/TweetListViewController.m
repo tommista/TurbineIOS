@@ -10,13 +10,13 @@
 #import "HandleListViewController.h"
 #import "AppDelegate.h"
 #import "DBManager.h"
-#import "TwitterAPI.h"
+#import "TweetManager.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SettingsViewController.h"
 
 @interface TweetListViewController (){
     DBManager *dbManager;
-    TwitterAPI *twitter;
+    TweetManager *tweetManager;
     NSArray *tweetsArray;
 }
 @end
@@ -27,8 +27,8 @@
     [super viewDidLoad];
     
     dbManager = [DBManager getSharedInstance];
-    twitter = [TwitterAPI getSharedInstance];
-    twitter.delegate = self;
+    tweetManager = [TweetManager getSharedInstance];
+    tweetManager.delegate = self;
     
     tweetsArray = [[NSArray alloc] init];
     tweetsArray = [dbManager getAllTweets];
@@ -69,7 +69,7 @@
 }
 
 - (IBAction) refreshPulled:(id)sender{
-    [twitter fetchAllTimelines];
+    [tweetManager fetchAllTimelines];
 }
 
 #pragma mark - UITableViewDataSource

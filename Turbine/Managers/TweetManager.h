@@ -10,11 +10,11 @@
 
 @protocol TwitterAPIDelegate;
 
-@interface TwitterAPI : NSObject
+@interface TweetManager : NSObject
 
 @property (weak, nonatomic) id<TwitterAPIDelegate> delegate;
 
-+ (TwitterAPI *) getSharedInstance;
++ (TweetManager *) getSharedInstance;
 
 - (void) fetchAllTimelines;
 - (void) getTimelineForUser:(NSString *)screenName;

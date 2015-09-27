@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TwitterAPI.h"
+#import "TweetManager.h"
 
 @interface TweetListViewController : UITableViewController <TwitterAPIDelegate>
 
