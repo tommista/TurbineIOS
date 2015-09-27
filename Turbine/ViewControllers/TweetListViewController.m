@@ -84,17 +84,18 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *tweetCellIdentifier = @"TweetCellIdentifier";
+    //static NSString *tweetCellIdentifier = @"TweetCellIdentifier";
+    Tweet *tweet = [tweetsArray objectAtIndex:indexPath.row];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tweetCellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tweet.screenName];
     
     if(cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:tweetCellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:tweet.screenName];
         cell.textLabel.font = [UIFont fontWithName:@"PT Sans" size:18.0];
         cell.detailTextLabel.numberOfLines = 0;
+        [cell.imageView sd_setImageWithURL:tweet.profileImageURL placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
     
-    Tweet *tweet = [tweetsArray objectAtIndex:indexPath.row];
     cell.textLabel.text = tweet.screenName;
     cell.detailTextLabel.text = tweet.text;
     
