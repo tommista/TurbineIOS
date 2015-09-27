@@ -59,7 +59,7 @@
 }
 
 - (IBAction) settingsButtonPressed:(id)sender{
-    
+    [dbManager dropTweetsTable];
 }
 
 - (IBAction) refreshPulled:(id)sender{

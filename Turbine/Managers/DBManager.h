@@ -19,6 +19,7 @@
 - (BOOL) deleteHandle:(NSString *)handle;
 - (NSArray *) getAllHandles;
 
+- (BOOL) dropTweetsTable;
 - (BOOL) insertTweet:(Tweet *) tweet;
 - (BOOL) deleteAllTweetsForUser:(NSString *)screenName;
 - (NSArray *) getAllTweets;

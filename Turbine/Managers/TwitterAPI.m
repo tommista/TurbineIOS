@@ -79,6 +79,15 @@ static TwitterAPI *instance = nil;
 - (void) fetchAllTimelines{
     NSArray *handles = [dbManager getAllHandles];
     fetchAllRemaining = handles.count;
+    
+    if(fetchAllRemaining == 0){
+        NSLog(@"Finished fetching all timelines");
+        if(self.delegate != nil && [self.delegate respondsToSelector:@selector(didFinishGettingAllTimelines)]){
+            [self.delegate didFinishGettingAllTimelines];
+        }
+        return;
+    }
+    
     for(NSString *handle in handles){
         [self getTimelineForUser:handle];
     }
