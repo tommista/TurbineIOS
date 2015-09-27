@@ -26,6 +26,7 @@
     
     dbManager = [DBManager getSharedInstance];
     twitter = [TwitterAPI getSharedInstance];
+    twitter.delegate = self;
     
     tweetsArray = [[NSArray alloc] init];
     
@@ -58,8 +59,7 @@
 }
 
 - (IBAction) settingsButtonPressed:(id)sender{
-    tweetsArray = [dbManager getAllTweets];
-    [self.tableView reloadData];
+    
 }
 
 - (IBAction) refreshPulled:(id)sender{
@@ -95,6 +95,13 @@
 #pragma mark - UITableViewDelegate
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+}
+
+#pragma mark - TwitterAPIDelegate
+
+- (void) didFinishGettingTimeline{
+    tweetsArray = [dbManager getAllTweets];
+    [self.tableView reloadData];
 }
 
 @end

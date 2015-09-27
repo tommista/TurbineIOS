@@ -85,11 +85,12 @@ static TwitterAPI *instance = nil;
         for(NSDictionary *json in jsonData){
             [tweetArray addObject:[[Tweet alloc] initWithJsonData:json]];
             [[DBManager getSharedInstance] insertTweet:tweetArray.lastObject];
-            Tweet *asdf = (Tweet *)[tweetArray lastObject];
-            NSLog(@"Added TweetId: %@ by %@", asdf.tweetId, asdf.screenName);
         }
         
-        NSLog(@"%@", [[DBManager getSharedInstance] getAllTweets]);
+        NSLog(@"Finished retrieving timeline for %@", screenName);
+        if(self.delegate != nil && [self.delegate respondsToSelector:@selector(didFinishGettingTimeline)]){
+            [self.delegate didFinishGettingTimeline];
+        }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);

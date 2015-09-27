@@ -8,10 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol TwitterAPIDelegate;
+
 @interface TwitterAPI : NSObject
+
+@property (weak, nonatomic) id<TwitterAPIDelegate> delegate;
 
 + (TwitterAPI *) getSharedInstance;
 
 - (void) getTimelineForUser:(NSString *)screenName;
+
+@end
+
+@protocol TwitterAPIDelegate <NSObject>
+
+@optional
+
+- (void) didFinishGettingTimeline;
 
 @end
