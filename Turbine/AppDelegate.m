@@ -9,8 +9,6 @@
 #import "AppDelegate.h"
 #import "TweetListViewController.h"
 
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
 @interface AppDelegate ()
 
 @end
@@ -21,11 +19,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [UINavigationBar appearance].barTintColor = UIColorFromRGB(0x55acee);
+    [UINavigationBar appearance].barTintColor = UIColorFromRGB(0x960018);
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     [UINavigationBar appearance].translucent = NO;
-    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont fontWithName:@"Nightmare Hero" size:32]};
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     TweetListViewController *tweetListVC = [[TweetListViewController alloc] initWithNibName:@"TweetListViewController" bundle:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tweetListVC];

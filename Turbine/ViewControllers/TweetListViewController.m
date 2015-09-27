@@ -25,8 +25,8 @@
     dbManager = [DBManager getSharedInstance];
     twitter = [TwitterAPI getSharedInstance];
     
-    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"List" style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed:)];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -37,7 +37,7 @@
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
-    self.navigationItem.title = @"Tweets";
+    self.navigationItem.title = @" ";
     [super viewWillDisappear:animated];
 }
 
@@ -46,6 +46,10 @@
 - (IBAction) listButtonPressed:(id)sender{
     HandleListViewController *handleListVC = [[HandleListViewController alloc] initWithNibName:@"HandleListViewController" bundle:nil];
     [self.navigationController pushViewController:handleListVC animated:YES];
+}
+
+- (IBAction) settingsButtonPressed:(id)sender{
+    
 }
 
 #pragma mark - UITableViewDataSource

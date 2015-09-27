@@ -15,6 +15,7 @@
 		0B0AB15E1B6543D0001B6F12 /* TweetListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B0AB15C1B6543D0001B6F12 /* TweetListViewController.xib */; };
 		0B0AB1621B6548E0001B6F12 /* HandleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */; };
 		0B0AB1631B6548E0001B6F12 /* HandleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */; };
+		0B3042A51BB7BB71003BF513 /* Nightmare_Hero_Normal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B3042A41BB7BB71003BF513 /* Nightmare_Hero_Normal.ttf */; };
 		0B462A3B1BA8C2D700B65D51 /* TwitterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B462A3A1BA8C2D700B65D51 /* TwitterAPI.m */; };
 		0B462A411BA8CA4600B65D51 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B462A401BA8CA4600B65D51 /* Tweet.m */; };
 		0BAB3AC41B8BB1EA0050EADE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAB3AC31B8BB1EA0050EADE /* libsqlite3.dylib */; };
@@ -48,6 +49,7 @@
 		0B0AB15F1B6548E0001B6F12 /* HandleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandleListViewController.h; path = ViewControllers/HandleListViewController.h; sourceTree = "<group>"; };
 		0B0AB1601B6548E0001B6F12 /* HandleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandleListViewController.m; path = ViewControllers/HandleListViewController.m; sourceTree = "<group>"; };
 		0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HandleListViewController.xib; path = ViewControllers/HandleListViewController.xib; sourceTree = "<group>"; };
+		0B3042A41BB7BB71003BF513 /* Nightmare_Hero_Normal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nightmare_Hero_Normal.ttf; sourceTree = "<group>"; };
 		0B462A381BA8C01600B65D51 /* Secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secrets.h; sourceTree = "<group>"; };
 		0B462A391BA8C2D700B65D51 /* TwitterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwitterAPI.h; path = Managers/TwitterAPI.h; sourceTree = "<group>"; };
 		0B462A3A1BA8C2D700B65D51 /* TwitterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TwitterAPI.m; path = Managers/TwitterAPI.m; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		0B0AB1271B6541A4001B6F12 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0B3042A31BB7BB67003BF513 /* Fonts */,
 				0B0AB1281B6541A4001B6F12 /* Info.plist */,
 				0B0AB1291B6541A4001B6F12 /* main.m */,
 			);
@@ -158,6 +161,14 @@
 				0B0AB1611B6548E0001B6F12 /* HandleListViewController.xib */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0B3042A31BB7BB67003BF513 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0B3042A41BB7BB71003BF513 /* Nightmare_Hero_Normal.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		3400B7DCF52C77212A8761FF /* Frameworks */ = {
@@ -260,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B0AB15E1B6543D0001B6F12 /* TweetListViewController.xib in Resources */,
+				0B3042A51BB7BB71003BF513 /* Nightmare_Hero_Normal.ttf in Resources */,
 				0B0AB1351B6541A5001B6F12 /* Images.xcassets in Resources */,
 				0B0AB1631B6548E0001B6F12 /* HandleListViewController.xib in Resources */,
 			);

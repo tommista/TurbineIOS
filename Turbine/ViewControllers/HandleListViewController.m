@@ -8,6 +8,7 @@
 
 #import "HandleListViewController.h"
 #import "DBManager.h"
+#import "AppDelegate.h"
 
 @interface HandleListViewController (){
     DBManager *dbManager;
@@ -72,6 +73,16 @@
     }
 }
 
+- (void) deleteButtonPressedAtIndexPath:(NSIndexPath *)indexPath{
+    bool deleteSuccessful = [dbManager deleteHandle:[handles objectAtIndex:indexPath.row]];
+    if(deleteSuccessful){
+        [handles removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }else{
+        NSLog(@"Error deleting handle: %@", [handles objectAtIndex:indexPath.row]);
+    }
+}
+
 - (void) alertCancelButtonPressed{
 }
 
@@ -92,11 +103,22 @@
     
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:handleCellIdentifier];
+        cell.textLabel.font = [UIFont fontWithName:@"Nightmare Hero" size:32.0];
     }
     
     cell.textLabel.text = [handles objectAtIndex:indexPath.row];
     
     return cell;
+}
+
+- (NSArray *) tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        [self deleteButtonPressedAtIndexPath:indexPath];
+    }];
+    
+    button.backgroundColor = UIColorFromRGB(0x960018);
+    
+    return @[button];
 }
 
 #pragma mark - UITableViewDelegate
