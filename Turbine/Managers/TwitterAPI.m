@@ -41,7 +41,6 @@ static TwitterAPI *instance = nil;
         if(twitterAccessToken == nil || twitterAccessToken.length == 0){
             [self getBearerToken];
         }else{
-            [self getTimelineForUser:@"thomasbrown333"];
         }
     }
     return self;
@@ -98,7 +97,6 @@ static TwitterAPI *instance = nil;
 }
 
 - (void) receivedAccessToken{
-    [self getTimelineForUser:@"thomasbrown333"];
 }
 
 @end

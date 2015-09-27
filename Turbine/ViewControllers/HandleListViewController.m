@@ -9,9 +9,11 @@
 #import "HandleListViewController.h"
 #import "DBManager.h"
 #import "AppDelegate.h"
+#import "TwitterAPI.h"
 
 @interface HandleListViewController (){
     DBManager *dbManager;
+    TwitterAPI *twitterAPI;
     NSMutableArray *handles;
     NSString *addHandleText;
 }
@@ -25,10 +27,10 @@
     self.navigationItem.title = @"Handles";
     
     dbManager = [DBManager getSharedInstance];
+    twitterAPI = [TwitterAPI getSharedInstance];
     handles = [[dbManager getAllHandles] mutableCopy];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addButtonPressed:)];
-    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backButtonPressed:)];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -67,6 +69,7 @@
     if(addSuccess){
         NSLog(@"Success adding %@", addHandleText);
         handles = [[dbManager getAllHandles] mutableCopy];
+        [twitterAPI getTimelineForUser:[addHandleText substringFromIndex:1]];
         [self.tableView reloadData];
     }else{
         NSLog(@"Error adding %@", addHandleText);
@@ -75,6 +78,7 @@
 
 - (void) deleteButtonPressedAtIndexPath:(NSIndexPath *)indexPath{
     bool deleteSuccessful = [dbManager deleteHandle:[handles objectAtIndex:indexPath.row]];
+    [dbManager deleteAllTweetsForUser:[[handles objectAtIndex:indexPath.row] substringFromIndex:1]];
     if(deleteSuccessful){
         [handles removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -128,7 +132,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    /*if (editingStyle == UITableViewCellEditingStyleDelete) {
         bool deleteSuccessful = [dbManager deleteHandle:[handles objectAtIndex:indexPath.row]];
         if(deleteSuccessful){
             [handles removeObjectAtIndex:indexPath.row];
@@ -137,7 +141,7 @@
             NSLog(@"Error deleting handle: %@", [handles objectAtIndex:indexPath.row]);
         }
         
-    }
+    }*/
 }
 
 #pragma mark - UITextFieldDelegate

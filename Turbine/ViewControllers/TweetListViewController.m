@@ -15,6 +15,7 @@
 @interface TweetListViewController (){
     DBManager *dbManager;
     TwitterAPI *twitter;
+    NSArray *tweetsArray;
 }
 @end
 
@@ -25,6 +26,8 @@
     
     dbManager = [DBManager getSharedInstance];
     twitter = [TwitterAPI getSharedInstance];
+    
+    tweetsArray = [[NSArray alloc] init];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed:)];
@@ -38,6 +41,8 @@
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationItem.title = @"Turbine";
+    tweetsArray = [dbManager getAllTweets];
+    [self.tableView reloadData];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -53,7 +58,8 @@
 }
 
 - (IBAction) settingsButtonPressed:(id)sender{
-    
+    tweetsArray = [dbManager getAllTweets];
+    [self.tableView reloadData];
 }
 
 - (IBAction) refreshPulled:(id)sender{
@@ -67,7 +73,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return tweetsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -77,45 +83,18 @@
     
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tweetCellIdentifier];
+        cell.textLabel.font = [UIFont fontWithName:@"PT Sans" size:18.0];
     }
+    
+    Tweet *tweet = [tweetsArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = tweet.text;
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
 #pragma mark - UITableViewDelegate
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row == 0){
-        bool test = [dbManager insertHandle:@"Test"];
-        NSLog(@"Inserted Test: %d", test);
-    }else if(indexPath.row == 1){
-        NSArray *array = [dbManager getAllHandles];
-        NSLog(@"Handles: %@", array);
-    }else if(indexPath.row == 2){
-        bool test = [dbManager deleteHandle:@"Test"];
-        NSLog(@"delete handle: %d", test);
-    }
 }
 
 @end

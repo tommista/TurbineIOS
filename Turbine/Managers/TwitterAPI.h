@@ -12,4 +12,6 @@
 
 + (TwitterAPI *) getSharedInstance;
 
+- (void) getTimelineForUser:(NSString *)screenName;
+
 @end
