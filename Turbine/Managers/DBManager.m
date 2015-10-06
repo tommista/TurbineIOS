@@ -179,9 +179,13 @@ static sqlite3_stmt *statement = nil;
                 tweet.expandedURL = [NSURL URLWithString:[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)]];
                 tweet.screenName = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 5)];
                 
-                NSString *fullURLStr = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 6)];
-                if(fullURLStr != nil && fullURLStr.length > 0){
-                    tweet.fullURL = [NSURL URLWithString:fullURLStr];
+                if(sqlite3_column_text(statement, 6) != nil){
+                    NSString *fullURLStr = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 6)];
+                    if(fullURLStr != nil && fullURLStr.length > 0){
+                        tweet.fullURL = [NSURL URLWithString:fullURLStr];
+                    }
+                }else{
+                    tweet.fullURL = nil;
                 }
                 
                 [resultArray addObject:tweet];

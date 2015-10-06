@@ -92,7 +92,6 @@
         estimatedHeight = 75;
     }
     
-    NSLog(@"Size: %d, Estimated: %d", tweet.text.length, estimatedHeight);
     return estimatedHeight;
 }
 
