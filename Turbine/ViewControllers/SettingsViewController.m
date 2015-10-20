@@ -7,8 +7,10 @@
 //
 
 #import "SettingsViewController.h"
+#import "DBManager.h"
 
 #define FILTER_BY_SECTION 0
+#define DUMP_SECTION 1
 
 #define FILTER_SPOTIFY_ROW 0
 #define FILTER_SOUNDCLOUD_ROW 1
@@ -62,7 +64,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 2;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -70,6 +72,9 @@
     switch(section){
         case FILTER_BY_SECTION:
             numRows = 4;
+            break;
+        case DUMP_SECTION:
+            numRows = 1;
             break;
     }
     return numRows;
@@ -80,6 +85,8 @@
     switch(section){
         case FILTER_BY_SECTION:
             title = @"Filter For";
+            break;
+        case DUMP_SECTION:
             break;
     }
     return title;
@@ -126,6 +133,8 @@
         cellSwitch.tag = indexPath.row;
         cell.accessoryView = cellSwitch;
         
+    }else{
+        cell.textLabel.text = @"Drop Tweets Database";
     }
     
     return cell;
@@ -134,7 +143,26 @@
 #pragma mark - UITableViewDelegate
 
 - (BOOL) tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
-    return NO;
+    bool shouldHighlight = NO;
+    switch(indexPath.section){
+        case FILTER_BY_SECTION:
+            shouldHighlight = NO;
+            break;
+        case DUMP_SECTION:
+            shouldHighlight = YES;
+            break;
+    }
+    return shouldHighlight;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch(indexPath.section){
+        case FILTER_BY_SECTION:
+            break;
+        case DUMP_SECTION:
+            [[DBManager getSharedInstance] dropTweetsTable];
+            break;
+    }
 }
 
 @end

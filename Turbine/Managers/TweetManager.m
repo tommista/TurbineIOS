@@ -106,12 +106,13 @@ static TweetManager *instance = nil;
             
             if(tweet.expandedURL != nil && tweet.expandedURL.absoluteString.length > 0){
                 
-                if([self stringContainsKeywords:tweet.expandedURL.absoluteString]){
+                /*if([self stringContainsKeywords:tweet.expandedURL.absoluteString]){
                     [dbManager insertTweet:tweet];
                     NSLog(@"Didn't need to shorten: %@", tweet.expandedURL.absoluteString);
                 }else{
                     [self unshortenTweet:tweet];
-                }
+                }*/
+                [dbManager insertTweet:tweet];
             }
         }
         
