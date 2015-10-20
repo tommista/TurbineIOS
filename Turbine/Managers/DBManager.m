@@ -120,7 +120,7 @@ static sqlite3_stmt *statement = nil;
     const char *dbpath = [databasePath UTF8String];
     
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *insertSQL = [NSString stringWithFormat:@"insert into tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, fullURL) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, tweet.createdAt, tweet.text, tweet.profileImageURL.absoluteString, tweet.expandedURL.absoluteString, tweet.screenName.lowercaseString, (tweet.fullURL != nil) ? tweet.fullURL.absoluteString : nil];
+        NSString *insertSQL = [NSString stringWithFormat:@"insert into tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, fullURL) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, [NSString stringWithFormat:@"%f", [tweet.createdAt timeIntervalSince1970]], tweet.text, tweet.profileImageURL.absoluteString, tweet.expandedURL.absoluteString, tweet.screenName.lowercaseString, (tweet.fullURL != nil) ? tweet.fullURL.absoluteString : nil];
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
@@ -173,11 +173,12 @@ static sqlite3_stmt *statement = nil;
             while(sqlite3_step(statement) == SQLITE_ROW){
                 Tweet *tweet = [[Tweet alloc] init];
                 tweet.tweetId = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 0)];
-                tweet.createdAt = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 1)];
                 tweet.text = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 2)];
                 tweet.profileImageURL = [NSURL URLWithString:[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 3)]];
                 tweet.expandedURL = [NSURL URLWithString:[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)]];
                 tweet.screenName = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 5)];
+                
+                tweet.createdAt = [NSDate dateWithTimeIntervalSince1970:[[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 1)] doubleValue]];
                 
                 if(sqlite3_column_text(statement, 6) != nil){
                     NSString *fullURLStr = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 6)];

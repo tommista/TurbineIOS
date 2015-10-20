@@ -13,7 +13,15 @@
 - (id) initWithJsonData:(NSDictionary *)data{
     self = [super init];
     if(self){
-        _createdAt = [data objectForKey:@"created_at"];
+        
+        NSString *createdAtStr = [data objectForKey:@"created_at"];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //Wed Aug 29 17:12:58 +0000 2012
+        [dateFormatter setDateFormat:@"EEE MMM dd HH:mm:ss +0000 yyyy"];
+        _createdAt = [dateFormatter dateFromString:createdAtStr];
+        
+        //NSLog(@"Init: %@ Num: %f", createdAtStr, [_createdAt timeIntervalSince1970]);
+
         _tweetId = [data objectForKey:@"id_str"];
         _text = [data objectForKey:@"text"];
         _fullURL = nil;
