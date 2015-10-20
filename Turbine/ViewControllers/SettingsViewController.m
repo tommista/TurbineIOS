@@ -16,6 +16,7 @@
 #define FILTER_SOUNDCLOUD_ROW 1
 #define FILTER_ITUNES_ROW 2
 #define FILTER_YOUTUBE_ROW 3
+#define FILTER_OTHER_ROW 4
 
 @interface SettingsViewController (){
     NSUserDefaults *userDefaults;
@@ -53,6 +54,9 @@
         case FILTER_YOUTUBE_ROW:
             [userDefaults setBool:switchState.isOn forKey:FILTER_BY_YOUTUBE_KEY];
             break;
+        case FILTER_OTHER_ROW:
+            [userDefaults setBool:switchState.isOn forKey:FILTER_BY_OTHER_KEY];
+            break;
     }
     [userDefaults synchronize];
 }
@@ -71,7 +75,7 @@
     int numRows = 0;
     switch(section){
         case FILTER_BY_SECTION:
-            numRows = 4;
+            numRows = 5;
             break;
         case DUMP_SECTION:
             numRows = 1;
@@ -122,6 +126,10 @@
             case FILTER_YOUTUBE_ROW:
                 title = @"Youtube";
                 switchState = [userDefaults boolForKey:FILTER_BY_YOUTUBE_KEY];
+                break;
+            case FILTER_OTHER_ROW:
+                title = @"Other";
+                switchState = [userDefaults boolForKey:FILTER_BY_OTHER_KEY];
                 break;
         }
         

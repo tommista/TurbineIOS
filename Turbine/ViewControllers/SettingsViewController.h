@@ -12,6 +12,7 @@
 #define FILTER_BY_SOUNDCLOUD_KEY @"filter_by_soundcloud"
 #define FILTER_BY_ITUNES_KEY @"filter_by_itunes"
 #define FILTER_BY_YOUTUBE_KEY @"filter_by_youtube"
+#define FILTER_BY_OTHER_KEY @"filter_by_other"
 
 @interface SettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
