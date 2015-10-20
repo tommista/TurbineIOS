@@ -31,7 +31,7 @@
     tweetManager.delegate = self;
     
     tweetsArray = [[NSArray alloc] init];
-    tweetsArray = [dbManager getAllTweetsSorted];
+    tweetsArray = [dbManager getAllFormattedTweetsSorted];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"user"] style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed:)];
@@ -45,7 +45,7 @@
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationItem.title = @"Turbine";
-    tweetsArray = [dbManager getAllTweetsSorted];
+    tweetsArray = [dbManager getAllFormattedTweetsSorted];
     [self.tableView reloadData];
 }
 
@@ -127,14 +127,14 @@
 
 - (void) didFinishGettingTimeline{
     if(![self.refreshControl isRefreshing]){
-        tweetsArray = [dbManager getAllTweetsSorted];
+        tweetsArray = [dbManager getAllFormattedTweetsSorted];
         [self.tableView reloadData];
     }
 }
 
 - (void) didFinishGettingAllTimelines{
     [self.refreshControl endRefreshing];
-    tweetsArray = [dbManager getAllTweetsSorted];
+    tweetsArray = [dbManager getAllFormattedTweetsSorted];
     [self.tableView reloadData];
 }
 

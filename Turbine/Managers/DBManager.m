@@ -8,6 +8,7 @@
 
 #import "DBManager.h"
 #import <sqlite3.h>
+#import "SettingsViewController.h"
 
 @interface DBManager(){
     NSString *databasePath;
@@ -206,6 +207,42 @@ static sqlite3_stmt *statement = nil;
     }];
     
     return sortedList;
+}
+
+- (NSArray *) getAllFormattedTweetsSorted{
+    NSMutableArray *tweets = [[self getAllTweetsSorted] mutableCopy];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    bool includeSpotify = [defaults boolForKey:FILTER_BY_SPOTIFY_KEY];
+    bool includeSoundcloud = [defaults boolForKey:FILTER_BY_SOUNDCLOUD_KEY];
+    bool includeItunes = [defaults boolForKey:FILTER_BY_ITUNES_KEY];
+    bool includeYoutube = [defaults boolForKey:FILTER_BY_YOUTUBE_KEY];
+    bool includeOther = [defaults boolForKey:FILTER_BY_OTHER_KEY];
+    
+    for(int index = 0; index < tweets.count; index++){
+        Tweet *tweet = [tweets objectAtIndex:index];
+        NSString *absString = [tweet.expandedURL.absoluteString lowercaseString];
+        BOOL remove = NO;
+        
+        if([absString containsString:@"spotify"]){
+            remove =  !includeSpotify;
+        }else if([absString containsString:@"soundcloud"]){
+            remove = !includeSoundcloud;
+        }else if([absString containsString:@"itunes"]){
+            remove = !includeItunes;
+        }else if([absString containsString:@"youtube"]){
+            remove = !includeYoutube;
+        }else if(!includeOther){
+            remove = YES;
+        }
+        
+        if(remove){
+            [tweets removeObjectAtIndex:index];
+            index--;
+        }
+    }
+    
+    return tweets;
 }
 
 - (BOOL) dropTweetsTable{
