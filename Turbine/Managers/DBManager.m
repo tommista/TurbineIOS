@@ -198,6 +198,16 @@ static sqlite3_stmt *statement = nil;
     return nil;
 }
 
+- (NSArray *) getAllTweetsSorted{
+    NSMutableArray *tweets = [[self getAllTweets] mutableCopy];
+    
+    NSArray *sortedList = [tweets sortedArrayUsingComparator:^NSComparisonResult(Tweet *tweet1, Tweet *tweet2) {
+        return !([tweet1.createdAt timeIntervalSince1970] > [tweet2.createdAt timeIntervalSince1970]);
+    }];
+    
+    return sortedList;
+}
+
 - (BOOL) dropTweetsTable{
     const char *dbpath = [databasePath UTF8String];
     

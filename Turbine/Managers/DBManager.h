@@ -24,5 +24,6 @@
 - (BOOL) updateTweet:(Tweet *) tweet;
 - (BOOL) deleteAllTweetsForUser:(NSString *)screenName;
 - (NSArray *) getAllTweets;
+- (NSArray *) getAllTweetsSorted;
 
 @end
