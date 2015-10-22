@@ -106,7 +106,8 @@
         cell.textLabel.font = [UIFont fontWithName:@"PTSans-Bold" size:18.0];
         cell.detailTextLabel.font = [UIFont fontWithName:@"PT Sans" size:14.0];
         cell.detailTextLabel.numberOfLines = 0;
-        [cell.imageView sd_setImageWithURL:tweet.profileImageURL placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        [cell.imageView sd_setImageWithURL:tweet.profileImageURL placeholderImage:[UIImage imageNamed:@"placeholderBig"]];
+        cell.imageView.transform = CGAffineTransformMakeScale(0.65, 0.65);
     }
     
     cell.textLabel.text = tweet.screenName;
