@@ -109,31 +109,38 @@
     if(indexPath.section == FILTER_BY_SECTION){
         NSString *title = @"";
         BOOL switchState = 1;
+        UIImage *image = nil;
         
         switch(indexPath.row){
             case FILTER_SPOTIFY_ROW:
                 title = @"Spotify";
                 switchState = [userDefaults boolForKey:FILTER_BY_SPOTIFY_KEY];
+                image = [UIImage imageNamed:@"spotify"];
                 break;
             case FILTER_SOUNDCLOUD_ROW:
                 title = @"Soundcloud";
                 switchState = [userDefaults boolForKey:FILTER_BY_SOUNDCLOUD_KEY];
+                image = [UIImage imageNamed:@"soundcloud"];
                 break;
             case FILTER_ITUNES_ROW:
                 title = @"iTunes";
                 switchState = [userDefaults boolForKey:FILTER_BY_ITUNES_KEY];
+                image = [UIImage imageNamed:@"apple"];
                 break;
             case FILTER_YOUTUBE_ROW:
                 title = @"Youtube";
                 switchState = [userDefaults boolForKey:FILTER_BY_YOUTUBE_KEY];
+                image = [UIImage imageNamed:@"youtube"];
                 break;
             case FILTER_OTHER_ROW:
                 title = @"Other";
                 switchState = [userDefaults boolForKey:FILTER_BY_OTHER_KEY];
+                image = [UIImage imageNamed:@"music"];
                 break;
         }
         
         cell.textLabel.text = title;
+        cell.imageView.image = image;
         
         UISwitch *cellSwitch = [[UISwitch alloc] init];
         [cellSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
