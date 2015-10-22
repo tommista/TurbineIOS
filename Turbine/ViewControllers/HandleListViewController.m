@@ -61,18 +61,18 @@
 }
 
 - (void) alertAddButtonPressed{
-    if(![addHandleText hasPrefix:@"@"]){
-        addHandleText = [@"@" stringByAppendingString:addHandleText];
+    if([addHandleText hasPrefix:@"@"]){
+        addHandleText = [addHandleText substringFromIndex:1];
     }
     
-    [tweetManager getImageURLForUser:addHandleText withCompletionBlock:^(NSURL *url) {
-        [self gotUser:addHandleText withImageURL:url];
+    [tweetManager getDataForUser:addHandleText withCompletionBlock:^(NSString *screenName, NSURL *url) {
+        [self gotUser:screenName withImageURL:url];
     }];
 }
 
 - (void) deleteButtonPressedAtIndexPath:(NSIndexPath *)indexPath{
     bool deleteSuccessful = [dbManager deleteHandle:[[handles objectForKey:HANDLES_HANDLE] objectAtIndex:indexPath.row]];
-    bool tweetsDeleteSuccessful = [dbManager deleteAllTweetsForUser:[[[handles objectForKey:HANDLES_HANDLE] objectAtIndex:indexPath.row] substringFromIndex:1]];
+    bool tweetsDeleteSuccessful = [dbManager deleteAllTweetsForUser:[[handles objectForKey:HANDLES_HANDLE] objectAtIndex:indexPath.row]];
     
     NSLog(@"Handle delete: %d, Tweets delete: %d", deleteSuccessful, tweetsDeleteSuccessful);
     
@@ -93,7 +93,7 @@
     if(addSuccess){
         NSLog(@"Success adding %@", addHandleText);
         handles = [[dbManager getAllHandles] mutableCopy];
-        [tweetManager getTimelineForUser:[addHandleText substringFromIndex:1]];
+        [tweetManager getTimelineForUser:addHandleText];
         [self.tableView reloadData];
     }else{
         NSLog(@"Error adding %@", addHandleText);

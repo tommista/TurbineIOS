@@ -20,7 +20,7 @@
 
 - (BOOL) insertHandle:(NSString *)handle imageURL:(NSURL *)url;
 - (BOOL) deleteHandle:(NSString *)handle;
-- (NSArray *) getAllHandles;
+- (NSDictionary *) getAllHandles;
 - (BOOL) dropHandlesTable;
 
 - (BOOL) dropTweetsTable;

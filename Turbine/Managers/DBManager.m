@@ -70,6 +70,7 @@ static sqlite3_stmt *statement = nil;
 #pragma mark - Handles
 
 - (BOOL) insertHandle:(NSString *)handle imageURL:(NSURL *)url{
+    NSLog(@"Adding handle: %@", handle);
     const char *dbpath = [databasePath UTF8String];
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
         NSString *insertSQL = [NSString stringWithFormat:@"insert into twitterHandles (handle, imageURL) values (\"%@\", \"%@\")", handle, url.absoluteString];
@@ -145,7 +146,7 @@ static sqlite3_stmt *statement = nil;
     const char *dbpath = [databasePath UTF8String];
     
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *insertSQL = [NSString stringWithFormat:@"insert into tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, fullURL) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, [NSString stringWithFormat:@"%f", [tweet.createdAt timeIntervalSince1970]], tweet.text, tweet.profileImageURL.absoluteString, tweet.expandedURL.absoluteString, tweet.screenName.lowercaseString, (tweet.fullURL != nil) ? tweet.fullURL.absoluteString : nil];
+        NSString *insertSQL = [NSString stringWithFormat:@"insert into tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, fullURL) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, [NSString stringWithFormat:@"%f", [tweet.createdAt timeIntervalSince1970]], tweet.text, tweet.profileImageURL.absoluteString, tweet.expandedURL.absoluteString, tweet.screenName, (tweet.fullURL != nil) ? tweet.fullURL.absoluteString : nil];
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
@@ -174,9 +175,10 @@ static sqlite3_stmt *statement = nil;
 }
 
 - (BOOL) deleteAllTweetsForUser:(NSString *)screenName{
+    NSLog(@"Deleting all tweets for user: %@", screenName);
     const char *dbpath = [databasePath UTF8String];
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *deleteSQL = [NSString stringWithFormat:@"delete from tweets where screenName=\"%@\"", screenName.lowercaseString];
+        NSString *deleteSQL = [NSString stringWithFormat:@"delete from tweets where screenName=\"%@\"", screenName];
         const char *delete_statement = [deleteSQL UTF8String];
         sqlite3_prepare_v2(database, delete_statement, -1, &statement, NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){

@@ -77,7 +77,7 @@ static TweetManager *instance = nil;
 }
 
 - (void) fetchAllTimelines{
-    NSArray *handles = [dbManager getAllHandles];
+    NSArray *handles = [[dbManager getAllHandles] objectForKey:HANDLES_HANDLE];
     fetchAllRemaining = handles.count;
     
     if(fetchAllRemaining == 0){
@@ -146,7 +146,7 @@ static TweetManager *instance = nil;
 - (void) receivedAccessToken{
 }
 
-- (void) getImageURLForUser:(NSString *)user withCompletionBlock:(void (^)(NSURL *url))completion{
+- (void) getDataForUser:(NSString *)user withCompletionBlock:(void (^)(NSString *screenName, NSURL *url))completion{
     NSDictionary *parameters = @{@"screen_name" : user};
     
     [afManager.requestSerializer setValue:[@"Bearer " stringByAppendingString:twitterAccessToken] forHTTPHeaderField:@"Authorization"];
@@ -154,8 +154,8 @@ static TweetManager *instance = nil;
     [afManager GET:@"https://api.twitter.com/1.1/users/show.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *jsonData = responseObject;
         NSString *rawString = [jsonData objectForKey:@"profile_image_url"];
-        //rawString = [rawString stringByReplacingOccurrencesOfString:@"normal" withString:@"mini"];
-        completion([NSURL URLWithString:rawString]);
+        NSString *screenName = [jsonData objectForKey:@"screen_name"];
+        completion(screenName, [NSURL URLWithString:rawString]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];

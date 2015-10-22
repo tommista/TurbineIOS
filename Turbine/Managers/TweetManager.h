@@ -18,7 +18,7 @@
 
 - (void) fetchAllTimelines;
 - (void) getTimelineForUser:(NSString *)screenName;
-- (void) getImageURLForUser:(NSString *)user withCompletionBlock:(void (^)(NSURL *url))completion;
+- (void) getDataForUser:(NSString *)user withCompletionBlock:(void (^)(NSString *screenName, NSURL *url))completion;
 
 @end
 
