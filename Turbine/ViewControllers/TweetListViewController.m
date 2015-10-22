@@ -14,6 +14,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "SettingsViewController.h"
 
+#define TWEET_TEXT_SIZE 14.0
+
 @interface TweetListViewController (){
     DBManager *dbManager;
     TweetManager *tweetManager;
@@ -83,6 +85,7 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     Tweet *tweet = [tweetsArray objectAtIndex:indexPath.row];
+    
     int estimatedHeight = 0;
     if(tweet.text.length > 120){
         estimatedHeight = 120;
@@ -91,6 +94,12 @@
     }else{
         estimatedHeight = 75;
     }
+    
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\n" options:NSRegularExpressionCaseInsensitive error:&error];
+    int tweetSize = (int) tweet.text.length;
+    int numberOfMatches = (int) [regex numberOfMatchesInString:tweet.text options:0 range:NSMakeRange(0, tweetSize)];
+    estimatedHeight += TWEET_TEXT_SIZE * numberOfMatches;
     
     return estimatedHeight;
 }
@@ -104,7 +113,7 @@
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:tweet.screenName];
         cell.textLabel.font = [UIFont fontWithName:@"PTSans-Bold" size:18.0];
-        cell.detailTextLabel.font = [UIFont fontWithName:@"PT Sans" size:14.0];
+        cell.detailTextLabel.font = [UIFont fontWithName:@"PT Sans" size:TWEET_TEXT_SIZE];
         cell.detailTextLabel.numberOfLines = 0;
         [cell.imageView sd_setImageWithURL:tweet.profileImageURL placeholderImage:[UIImage imageNamed:@"placeholderBig"]];
         cell.imageView.transform = CGAffineTransformMakeScale(0.65, 0.65);
