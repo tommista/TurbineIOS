@@ -20,6 +20,8 @@
     DBManager *dbManager;
     TweetManager *tweetManager;
     NSArray *tweetsArray;
+    
+    UILabel *emptyLabel;
 }
 @end
 
@@ -34,6 +36,13 @@
     
     tweetsArray = [[NSArray alloc] init];
     tweetsArray = [dbManager getAllFormattedTweetsSorted];
+    
+    emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 100)];
+    emptyLabel.text = @"Hit the Handle button in the\nupper left to start adding tweeters\nto the turbine!";
+    emptyLabel.numberOfLines = 0;
+    emptyLabel.font = [UIFont fontWithName:@"PT Sans" size:18.0];
+    emptyLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:emptyLabel];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"user"] style:UIBarButtonItemStylePlain target:self action:@selector(listButtonPressed:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed:)];
@@ -80,7 +89,18 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return tweetsArray.count;
+    int num = (int) tweetsArray.count;
+    
+    if(num == 0){
+        emptyLabel.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 150);
+        emptyLabel.hidden = NO;
+        NSLog(@"Displaying emptyLabel");
+    }else{
+        emptyLabel.hidden = YES;
+        NSLog(@"Hiding emptyLabel");
+    }
+    
+    return num;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
