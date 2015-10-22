@@ -33,6 +33,8 @@ static sqlite3_stmt *statement = nil;
     self = [super init];
     if(self){
         [self createTables];
+        //[self dropTweetsTable];
+        //[self dropHandlesTable];
     }
     return self;
 }
@@ -119,6 +121,22 @@ static sqlite3_stmt *statement = nil;
         }
     }
     return nil;
+}
+
+- (BOOL) dropHandlesTable{
+    const char *dbpath = [databasePath UTF8String];
+    
+    if(sqlite3_open(dbpath, &database) == SQLITE_OK){
+        NSString *insertSQL = @"drop table twitterHandles";
+        const char *insert_statement = [insertSQL UTF8String];
+        sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
+        if(sqlite3_step(statement) == SQLITE_DONE){
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - Tweets

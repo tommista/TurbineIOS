@@ -10,11 +10,12 @@
 #import "DBManager.h"
 #import "AppDelegate.h"
 #import "TweetManager.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface HandleListViewController (){
     DBManager *dbManager;
     TweetManager *tweetManager;
-    NSMutableArray *handles;
+    NSMutableDictionary *handles;
     NSString *addHandleText;
 }
 @end
@@ -70,16 +71,16 @@
 }
 
 - (void) deleteButtonPressedAtIndexPath:(NSIndexPath *)indexPath{
-    bool deleteSuccessful = [dbManager deleteHandle:[handles objectAtIndex:indexPath.row]];
-    bool tweetsDeleteSuccessful = [dbManager deleteAllTweetsForUser:[[handles objectAtIndex:indexPath.row] substringFromIndex:1]];
+    bool deleteSuccessful = [dbManager deleteHandle:[[handles objectForKey:HANDLES_HANDLE] objectAtIndex:indexPath.row]];
+    bool tweetsDeleteSuccessful = [dbManager deleteAllTweetsForUser:[[[handles objectForKey:HANDLES_HANDLE] objectAtIndex:indexPath.row] substringFromIndex:1]];
     
     NSLog(@"Handle delete: %d, Tweets delete: %d", deleteSuccessful, tweetsDeleteSuccessful);
     
     if(deleteSuccessful){
-        [handles removeObjectAtIndex:indexPath.row];
+        [[handles objectForKey:HANDLES_HANDLE] removeObjectAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }else{
-        NSLog(@"Error deleting handle: %@", [handles objectAtIndex:indexPath.row]);
+        NSLog(@"Error deleting handle: %@", [[handles objectForKey:HANDLES_HANDLE] objectAtIndex:indexPath.row]);
     }
 }
 
@@ -106,7 +107,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return handles.count;
+    return [[handles objectForKey:HANDLES_HANDLE] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -119,7 +120,10 @@
         cell.textLabel.font = [UIFont fontWithName:@"PT Sans" size:18.0];
     }
     
-    cell.textLabel.text = [handles objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[handles objectForKey:HANDLES_HANDLE] objectAtIndex:indexPath.row];
+    
+    [cell.imageView sd_setImageWithURL:[[handles objectForKey:HANDLES_IMAGEURL] objectAtIndex:indexPath.row] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    cell.imageView.transform = CGAffineTransformMakeScale(0.65, 0.65);
     
     return cell;
 }

@@ -21,6 +21,7 @@
 - (BOOL) insertHandle:(NSString *)handle imageURL:(NSURL *)url;
 - (BOOL) deleteHandle:(NSString *)handle;
 - (NSArray *) getAllHandles;
+- (BOOL) dropHandlesTable;
 
 - (BOOL) dropTweetsTable;
 - (BOOL) insertTweet:(Tweet *) tweet;

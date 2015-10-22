@@ -154,7 +154,7 @@ static TweetManager *instance = nil;
     [afManager GET:@"https://api.twitter.com/1.1/users/show.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *jsonData = responseObject;
         NSString *rawString = [jsonData objectForKey:@"profile_image_url"];
-        rawString = [rawString stringByReplacingOccurrencesOfString:@"normal" withString:@"mini"];
+        //rawString = [rawString stringByReplacingOccurrencesOfString:@"normal" withString:@"mini"];
         completion([NSURL URLWithString:rawString]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
