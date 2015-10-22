@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "TweetListViewController.h"
+#import "SettingsViewController.h"
+
+#define RUN_BEFORE_KEY @"run_before_key"
 
 @interface AppDelegate ()
 
@@ -24,6 +27,8 @@
     [UINavigationBar appearance].translucent = NO;
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont fontWithName:@"Nightmare Hero" size:32]};
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    [self setupNSUserDefaults];
     
     TweetListViewController *tweetListVC = [[TweetListViewController alloc] initWithNibName:@"TweetListViewController" bundle:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tweetListVC];
@@ -52,6 +57,27 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - First time actions
+
+- (void) setupNSUserDefaults{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    bool runBefore = [defaults boolForKey:RUN_BEFORE_KEY];
+    
+    if(runBefore){
+        NSLog(@"App has run before");
+    }else{
+        NSLog(@"App has not run before");
+        [defaults setBool:YES forKey:RUN_BEFORE_KEY];
+        [defaults setBool:YES forKey:FILTER_BY_ITUNES_KEY];
+        [defaults setBool:YES forKey:FILTER_BY_OTHER_KEY];
+        [defaults setBool:YES forKey:FILTER_BY_SOUNDCLOUD_KEY];
+        [defaults setBool:YES forKey:FILTER_BY_SPOTIFY_KEY];
+        [defaults setBool:YES forKey:FILTER_BY_YOUTUBE_KEY];
+        [defaults synchronize];
+    }
+    
 }
 
 @end
