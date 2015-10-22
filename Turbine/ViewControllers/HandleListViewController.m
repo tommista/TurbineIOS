@@ -66,7 +66,11 @@
     }
     
     [tweetManager getDataForUser:addHandleText withCompletionBlock:^(NSString *screenName, NSURL *url) {
-        [self gotUser:screenName withImageURL:url];
+        if(screenName == nil && url == nil){
+            [self showInvalidHandleDialog];
+        }else{
+            [self gotUser:screenName withImageURL:url];
+        }
     }];
 }
 
@@ -85,19 +89,6 @@
 }
 
 - (void) alertCancelButtonPressed{
-}
-
-- (void) gotUser:(NSString *)user withImageURL:(NSURL *)url{
-    bool addSuccess = [dbManager insertHandle:user imageURL:url];
-    
-    if(addSuccess){
-        NSLog(@"Success adding %@", addHandleText);
-        handles = [[dbManager getAllHandles] mutableCopy];
-        [tweetManager getTimelineForUser:addHandleText];
-        [self.tableView reloadData];
-    }else{
-        NSLog(@"Error adding %@", addHandleText);
-    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -163,6 +154,30 @@
     UIAlertController *alertController = (UIAlertController *) self.presentedViewController;
     if (alertController){
         addHandleText = sender.text;
+    }
+}
+
+#pragma mark - Misc
+
+- (void) showInvalidHandleDialog{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                    message:@"Invalid Twitter Handle."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void) gotUser:(NSString *)user withImageURL:(NSURL *)url{
+    bool addSuccess = [dbManager insertHandle:user imageURL:url];
+    
+    if(addSuccess){
+        NSLog(@"Success adding %@", addHandleText);
+        handles = [[dbManager getAllHandles] mutableCopy];
+        [tweetManager getTimelineForUser:addHandleText];
+        [self.tableView reloadData];
+    }else{
+        NSLog(@"Error adding %@", addHandleText);
     }
 }
 

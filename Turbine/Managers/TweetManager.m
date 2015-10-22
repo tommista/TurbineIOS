@@ -78,7 +78,7 @@ static TweetManager *instance = nil;
 
 - (void) fetchAllTimelines{
     NSArray *handles = [[dbManager getAllHandles] objectForKey:HANDLES_HANDLE];
-    fetchAllRemaining = handles.count;
+    fetchAllRemaining = (int) handles.count;
     
     if(fetchAllRemaining == 0){
         NSLog(@"Finished fetching all timelines");
@@ -158,6 +158,7 @@ static TweetManager *instance = nil;
         completion(screenName, [NSURL URLWithString:rawString]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        completion(nil, nil);
     }];
 }
 
