@@ -47,7 +47,7 @@ static sqlite3_stmt *statement = nil;
     
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
         char *errorMessage;
-        const char *sql_statement = "create table if not exists twitterHandles (handle)";
+        const char *sql_statement = "create table if not exists twitterHandles (handle, imageURL)";
         if(sqlite3_exec(database, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK){
             isSuccess = NO;
             NSLog(@"Failed to create table twitterHandles");
@@ -67,10 +67,10 @@ static sqlite3_stmt *statement = nil;
 
 #pragma mark - Handles
 
-- (BOOL) insertHandle:(NSString *)handle{
+- (BOOL) insertHandle:(NSString *)handle imageURL:(NSURL *)url{
     const char *dbpath = [databasePath UTF8String];
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *insertSQL = [NSString stringWithFormat:@"insert into twitterHandles (handle) values (\"%@\")", handle];
+        NSString *insertSQL = [NSString stringWithFormat:@"insert into twitterHandles (handle, imageURL) values (\"%@\", \"%@\")", handle, url.absoluteString];
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
@@ -97,19 +97,25 @@ static sqlite3_stmt *statement = nil;
     return NO;
 }
 
-- (NSArray *) getAllHandles{
+- (NSDictionary *) getAllHandles{
+    
+    NSMutableDictionary *handles = [[NSMutableDictionary alloc] init];
+    [handles setObject:[[NSMutableArray alloc] init] forKey:HANDLES_HANDLE];
+    [handles setObject:[[NSMutableArray alloc] init] forKey:HANDLES_IMAGEURL];
+    
     const char *dbpath = [databasePath UTF8String];
     if (sqlite3_open(dbpath, &database) == SQLITE_OK){
         NSString *querySQL = @"select * from twitterHandles";
         const char *query_stmt = [querySQL UTF8String];
-        NSMutableArray *resultArray = [[NSMutableArray alloc]init];
         if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK){
             while(sqlite3_step(statement) == SQLITE_ROW){
                 NSString *handle = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 0)];
-                [resultArray addObject:handle];
+                NSString *imageURLString = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 1)];
+                [[handles objectForKey:HANDLES_HANDLE] addObject:handle];
+                [[handles objectForKey:HANDLES_IMAGEURL] addObject:imageURLString];
             }
             sqlite3_reset(statement);
-            return resultArray;
+            return handles;
         }
     }
     return nil;

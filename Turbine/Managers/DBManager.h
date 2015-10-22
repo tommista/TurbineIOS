@@ -9,13 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "Tweet.h"
 
+#define HANDLES_HANDLE @"handle"
+#define HANDLES_IMAGEURL @"imageURL"
+
 @interface DBManager : NSObject
 
 + (DBManager *) getSharedInstance;
 
 - (BOOL) createTables;
 
-- (BOOL) insertHandle:(NSString *)handle;
+- (BOOL) insertHandle:(NSString *)handle imageURL:(NSURL *)url;
 - (BOOL) deleteHandle:(NSString *)handle;
 - (NSArray *) getAllHandles;
 

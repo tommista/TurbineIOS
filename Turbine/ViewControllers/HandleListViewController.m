@@ -64,18 +64,9 @@
         addHandleText = [@"@" stringByAppendingString:addHandleText];
     }
     
-    [tweetManager getImageURLForUser:addHandleText withCompletionBlock:nil];
-    
-    bool addSuccess = [dbManager insertHandle:addHandleText];
-    
-    if(addSuccess){
-        NSLog(@"Success adding %@", addHandleText);
-        handles = [[dbManager getAllHandles] mutableCopy];
-        [tweetManager getTimelineForUser:[addHandleText substringFromIndex:1]];
-        [self.tableView reloadData];
-    }else{
-        NSLog(@"Error adding %@", addHandleText);
-    }
+    [tweetManager getImageURLForUser:addHandleText withCompletionBlock:^(NSURL *url) {
+        [self gotUser:addHandleText withImageURL:url];
+    }];
 }
 
 - (void) deleteButtonPressedAtIndexPath:(NSIndexPath *)indexPath{
@@ -93,6 +84,19 @@
 }
 
 - (void) alertCancelButtonPressed{
+}
+
+- (void) gotUser:(NSString *)user withImageURL:(NSURL *)url{
+    bool addSuccess = [dbManager insertHandle:user imageURL:url];
+    
+    if(addSuccess){
+        NSLog(@"Success adding %@", addHandleText);
+        handles = [[dbManager getAllHandles] mutableCopy];
+        [tweetManager getTimelineForUser:[addHandleText substringFromIndex:1]];
+        [self.tableView reloadData];
+    }else{
+        NSLog(@"Error adding %@", addHandleText);
+    }
 }
 
 #pragma mark - UITableViewDataSource
