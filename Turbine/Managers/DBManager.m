@@ -38,22 +38,21 @@ static sqlite3_stmt *statement = nil;
 }
 
 - (BOOL) createTables{
-    NSString *docsDir;
     BOOL isSuccess = YES;
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    docsDir = [dirPaths objectAtIndex:0];
+    NSString *docsDir = [dirPaths objectAtIndex:0];
     databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:@"handles.db"]];
     const char *dbpath = [databasePath UTF8String];
     
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
         char *errorMessage;
-        const char *sql_statement = "create table if not exists twitterHandles (handle, imageURL)";
+        const char *sql_statement = "CREATE TABLE IF NOT EXISTS twitterHandles (handle, imageURL)";
         if(sqlite3_exec(database, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK){
             isSuccess = NO;
             NSLog(@"Failed to create table twitterHandles");
         }
         
-        sql_statement = "create table if not exists tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, fullURL, PRIMARY KEY (tweetId))";
+        sql_statement = "CREATE TABLE IF NOT EXISTS tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, fullURL, PRIMARY KEY (tweetId))";
         if(sqlite3_exec(database, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK){
             isSuccess = NO;
             NSLog(@"Failed to create table tweets");
@@ -71,14 +70,10 @@ static sqlite3_stmt *statement = nil;
     NSLog(@"Adding handle: %@", handle);
     const char *dbpath = [databasePath UTF8String];
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *insertSQL = [NSString stringWithFormat:@"insert into twitterHandles (handle, imageURL) values (\"%@\", \"%@\")", handle, url.absoluteString];
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO twitterHandles (handle, imageURL) values (\"%@\", \"%@\")", handle, url.absoluteString];
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
-        if(sqlite3_step(statement) == SQLITE_DONE){
-            return YES;
-        }else{
-            return NO;
-        }
+        return (sqlite3_step(statement) == SQLITE_DONE);
     }
     return NO;
 }
@@ -86,27 +81,22 @@ static sqlite3_stmt *statement = nil;
 - (BOOL) deleteHandle:(NSString *)handle{
     const char *dbpath = [databasePath UTF8String];
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *deleteSQL = [NSString stringWithFormat:@"delete from twitterHandles where handle=\"%@\"", handle];
+        NSString *deleteSQL = [NSString stringWithFormat:@"DELETE FROM twitterHandles WHERE handle=\"%@\"", handle];
         const char *delete_statement = [deleteSQL UTF8String];
         sqlite3_prepare_v2(database, delete_statement, -1, &statement, NULL);
-        if(sqlite3_step(statement) == SQLITE_DONE){
-            return YES;
-        }else{
-            return NO;
-        }
+        return (sqlite3_step(statement) == SQLITE_DONE);
     }
     return NO;
 }
 
 - (NSDictionary *) getAllHandles{
-    
     NSMutableDictionary *handles = [[NSMutableDictionary alloc] init];
     [handles setObject:[[NSMutableArray alloc] init] forKey:HANDLES_HANDLE];
     [handles setObject:[[NSMutableArray alloc] init] forKey:HANDLES_IMAGEURL];
     
     const char *dbpath = [databasePath UTF8String];
     if (sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *querySQL = @"select * from twitterHandles";
+        NSString *querySQL = @"SELECT * FROM twitterHandles";
         const char *query_stmt = [querySQL UTF8String];
         if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK){
             while(sqlite3_step(statement) == SQLITE_ROW){
@@ -126,14 +116,10 @@ static sqlite3_stmt *statement = nil;
     const char *dbpath = [databasePath UTF8String];
     
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *insertSQL = @"drop table twitterHandles";
+        NSString *insertSQL = @"DROP TABLE twitterHandles";
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
-        if(sqlite3_step(statement) == SQLITE_DONE){
-            return YES;
-        }else{
-            return NO;
-        }
+        return (sqlite3_step(statement) == SQLITE_DONE);
     }
     return NO;
 }
@@ -144,14 +130,10 @@ static sqlite3_stmt *statement = nil;
     const char *dbpath = [databasePath UTF8String];
     
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *insertSQL = [NSString stringWithFormat:@"insert into tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, fullURL) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, [NSString stringWithFormat:@"%f", [tweet.createdAt timeIntervalSince1970]], tweet.text, tweet.profileImageURL.absoluteString, tweet.expandedURL.absoluteString, tweet.screenName, (tweet.fullURL != nil) ? tweet.fullURL.absoluteString : nil];
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO tweets (tweetId, createdAt, text, profileImageURL, tweetURLs, screenName, fullURL) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", tweet.tweetId, [NSString stringWithFormat:@"%f", [tweet.createdAt timeIntervalSince1970]], tweet.text, tweet.profileImageURL.absoluteString, tweet.expandedURL.absoluteString, tweet.screenName, (tweet.fullURL != nil) ? tweet.fullURL.absoluteString : nil];
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
-        if(sqlite3_step(statement) == SQLITE_DONE){
-            return YES;
-        }else{
-            return NO;
-        }
+        return (sqlite3_step(statement) == SQLITE_DONE);
     }
     return NO;
 }
@@ -160,14 +142,10 @@ static sqlite3_stmt *statement = nil;
     const char *dbpath = [databasePath UTF8String];
     
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *updateSQL = [NSString stringWithFormat:@"update tweets set fullURL='%@' where tweetId='%@'", tweet.fullURL.absoluteString, tweet.tweetId];
+        NSString *updateSQL = [NSString stringWithFormat:@"UPDATE TWEETS SET fullURL='%@' WHERE tweetId='%@'", tweet.fullURL.absoluteString, tweet.tweetId];
         const char *insert_statement = [updateSQL UTF8String];
         sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
-        if(sqlite3_step(statement) == SQLITE_DONE){
-            return YES;
-        }else{
-            return NO;
-        }
+        return (sqlite3_step(statement) == SQLITE_DONE);
     }
     return NO;
 }
@@ -176,14 +154,10 @@ static sqlite3_stmt *statement = nil;
     NSLog(@"Deleting all tweets for user: %@", screenName);
     const char *dbpath = [databasePath UTF8String];
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *deleteSQL = [NSString stringWithFormat:@"delete from tweets where screenName=\"%@\"", screenName];
+        NSString *deleteSQL = [NSString stringWithFormat:@"DELETE FROM tweets WHERE screenName=\"%@\"", screenName];
         const char *delete_statement = [deleteSQL UTF8String];
         sqlite3_prepare_v2(database, delete_statement, -1, &statement, NULL);
-        if(sqlite3_step(statement) == SQLITE_DONE){
-            return YES;
-        }else{
-            return NO;
-        }
+        return (sqlite3_step(statement) == SQLITE_DONE);
     }
     return NO;
 }
@@ -191,7 +165,7 @@ static sqlite3_stmt *statement = nil;
 - (NSArray *) getAllTweets{
     const char *dbpath = [databasePath UTF8String];
     if (sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *querySQL = @"select * from tweets";
+        NSString *querySQL = @"SELECT * FROM tweets";
         const char *query_stmt = [querySQL UTF8String];
         NSMutableArray *resultArray = [[NSMutableArray alloc]init];
         if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK){
@@ -202,7 +176,6 @@ static sqlite3_stmt *statement = nil;
                 tweet.profileImageURL = [NSURL URLWithString:[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 3)]];
                 tweet.expandedURL = [NSURL URLWithString:[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 4)]];
                 tweet.screenName = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 5)];
-                
                 tweet.createdAt = [NSDate dateWithTimeIntervalSince1970:[[[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, 1)] doubleValue]];
                 
                 if(sqlite3_column_text(statement, 6) != nil){
@@ -273,14 +246,10 @@ static sqlite3_stmt *statement = nil;
     const char *dbpath = [databasePath UTF8String];
     
     if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-        NSString *insertSQL = @"drop table tweets";
+        NSString *insertSQL = @"DROP TABLE tweets";
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(database, insert_statement, -1, &statement, NULL);
-        if(sqlite3_step(statement) == SQLITE_DONE){
-            return YES;
-        }else{
-            return NO;
-        }
+        return (sqlite3_step(statement) == SQLITE_DONE);
     }
     return NO;
 }

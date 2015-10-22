@@ -125,7 +125,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //static NSString *tweetCellIdentifier = @"TweetCellIdentifier";
     Tweet *tweet = [tweetsArray objectAtIndex:indexPath.row];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tweet.screenName];

@@ -136,16 +136,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    /*if (editingStyle == UITableViewCellEditingStyleDelete) {
-        bool deleteSuccessful = [dbManager deleteHandle:[handles objectAtIndex:indexPath.row]];
-        if(deleteSuccessful){
-            [handles removeObjectAtIndex:indexPath.row];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        }else{
-            NSLog(@"Error deleting handle: %@", [handles objectAtIndex:indexPath.row]);
-        }
-        
-    }*/
 }
 
 #pragma mark - UITextFieldDelegate
