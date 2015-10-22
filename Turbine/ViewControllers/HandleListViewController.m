@@ -64,6 +64,8 @@
         addHandleText = [@"@" stringByAppendingString:addHandleText];
     }
     
+    [tweetManager getImageURLForUser:addHandleText withCompletionBlock:nil];
+    
     bool addSuccess = [dbManager insertHandle:addHandleText];
     
     if(addSuccess){
