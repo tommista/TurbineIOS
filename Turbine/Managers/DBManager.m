@@ -33,8 +33,6 @@ static sqlite3_stmt *statement = nil;
     self = [super init];
     if(self){
         [self createTables];
-        //[self dropTweetsTable];
-        //[self dropHandlesTable];
     }
     return self;
 }
