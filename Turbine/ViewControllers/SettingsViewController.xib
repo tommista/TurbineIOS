@@ -3,10 +3,16 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="PT_Sans-Web-Regular.ttf">
+            <string>PTSans-Regular</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsViewController">
             <connections>
                 <outlet property="tableView" destination="Myo-cy-xWo" id="69Y-C0-epv"/>
+                <outlet property="versionLabel" destination="RMg-gp-rzC" id="pjk-8g-4Q9"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,17 +21,26 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Myo-cy-xWo">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Myo-cy-xWo">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="563"/>
                     <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMg-gp-rzC">
+                    <rect key="frame" x="0.0" y="571" width="600" height="21"/>
+                    <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="12"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Myo-cy-xWo" secondAttribute="bottom" id="PS8-Gw-9R5"/>
+                <constraint firstAttribute="bottom" secondItem="RMg-gp-rzC" secondAttribute="bottom" constant="8" id="NQi-7D-MFA"/>
                 <constraint firstItem="Myo-cy-xWo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VDy-Sz-Krg"/>
+                <constraint firstItem="RMg-gp-rzC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WDH-3H-1ug"/>
+                <constraint firstItem="RMg-gp-rzC" firstAttribute="top" secondItem="Myo-cy-xWo" secondAttribute="bottom" constant="8" id="ckh-iH-Udi"/>
                 <constraint firstAttribute="trailing" secondItem="Myo-cy-xWo" secondAttribute="trailing" id="gkG-Fg-wua"/>
                 <constraint firstItem="Myo-cy-xWo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jDe-lp-7IW"/>
+                <constraint firstAttribute="trailing" secondItem="RMg-gp-rzC" secondAttribute="trailing" id="xC6-AJ-gTS"/>
             </constraints>
         </view>
     </objects>

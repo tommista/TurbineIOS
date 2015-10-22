@@ -34,6 +34,8 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cross"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPressed:)];
     
+    _versionLabel.text = [@"Turbine Version " stringByAppendingString:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    
     _tableView.delegate = self;
     _tableView.dataSource = self;
 }
